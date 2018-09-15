@@ -7,11 +7,20 @@
 SoftUni course C# Web Development - Basics - September 2018: All tasks with their solutions.
 
 ## Course content:
-- DB Apps Introduction
+- HTML and CSS
+- Web Server
+	- HTTP Protocol
+	- Asynchonous Processing
+	- State Managment
+	- Databases - Entity Framework Core
+- Introduction to MVC
+- Advanced MVC Framework - IOC, Data Binding, Auto-Mapping
+- Advanced MVC Framework - Extending MVC Framework
 
 ## Repository content:
 
 > **Homeworks**
 №	|Tasks										|Descriptions																										|Exercises																																		|Progress																														
 :--:|-------------------------------------------|:-----------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------:|:---------------:
-1	|											|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
+1	|HTML and CSS								|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
+2	|HTML and CSS								|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
