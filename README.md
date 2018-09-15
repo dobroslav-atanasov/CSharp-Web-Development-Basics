@@ -5,3 +5,10 @@
 
 ## Course: [C# Web Development - Basics](https://softuni.bg/trainings/2086/csharp-web-development-basics-september-2018)
 SoftUni course C# Web Development - Basics - September 2018: All tasks with their solutions.
+
+## Course content:
+- DB Apps Introduction
+
+## Repository content:
+
+> **Homeworks**
