@@ -20,7 +20,8 @@ SoftUni course C# Web Development - Basics - September 2018: All tasks with thei
 ## Repository content:
 
 > **Homeworks**
+
 №	|Tasks										|Descriptions																										|Exercises																																		|Progress																														
 :--:|-------------------------------------------|:-----------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------:|:---------------:
 1	|HTML and CSS								|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
-2	|HTML and CSS								|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
+2	|Web Server - HTTP Protocol					|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
