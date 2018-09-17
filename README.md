@@ -23,5 +23,5 @@ SoftUni course C# Web Development - Basics - September 2018: All tasks with thei
 
 №	|Tasks										|Descriptions																										|Exercises																																		|Progress																														
 :--:|-------------------------------------------|:-----------------------------------------------------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------------------:|:---------------:
-1	|HTML and CSS								|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
-2	|Web Server - HTTP Protocol					|[Description]																										|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
+1	|HTML and CSS - Lab							|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
+2	|HTML and CSS - Exercises					|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[Exercises]																																	|![Progress](http://progressed.io/bar/0)
