@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="styles/form.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <title>Order</title>
+    </head>
+
+    <body>
+        <nav>
+            <div class="topnav">
+                <a class="logo" href="index.html"><img src="images/logo.png"></a>
+                <a href="index.html">Home</a>
+                <a href="all-beers.html">See All Beers</a>
+                <a class="active" href="order.html">Order a Beer</a>
+                <a class="right" href="register.html">Register</a>
+                <a class="right" href="login.html">Log in</a>
+            </div>
+        </nav>
+
+        <main>
+            <center>
+                <h1>Order a Beer</h1>
+                <br>
+                <form>
+                    <label>Brand</label>
+                    <select>
+                        <option selected disabled>Select a brand</option>
+                        <option>Corona Extra</option>
+                        <option>Stella Artois</option>
+                        <option>Carlsberg</option>
+                        <option>Heineken</option>
+                    </select>
+                    <label>Quantity</label>
+                    <input type="number" min="1" max="25" placeholder="Please enter amount of 1 to 25">
+                    <label>Destination</label>
+                    <select>
+                        <option value="0" selected disabled>Select a destination</option>
+                        <option value="1">Sofia</option>
+                        <option value="2">Plovdiv</option>
+                        <option value="3">Varna</option>
+                        <option value="4">Burgas</option>
+                    </select>
+                    <label>Enter your birthday</label>
+                    <input placeholder="mm/dd/yyyy" type="date" name="birthday">
+                    <label>Got an opinion, comment, recommendation? Share it with us!</label>
+                    <input placeholder="Share your opinion with us!" type="text" name="opinion">
+                    <input type="submit" value="Order">
+                </form>
+            </center>
+        </main>
+
+        <footer>
+            <hr>
+            <p><em>&copy; 2018 &dash; SoftUni Beers</em></p>
+        </footer>
+    </body>
+</html>
