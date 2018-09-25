@@ -1,12 +1,12 @@
-﻿using System;
-
-namespace WebServer
+﻿namespace WebServer
 {
-    class Program
+    using System;
+
+    public class StartUp
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine();
         }
     }
 }
