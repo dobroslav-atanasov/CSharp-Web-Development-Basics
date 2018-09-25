@@ -5,4 +5,16 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\Controllers\" />
+    <Folder Include="Application\Views\" />
+    <Folder Include="Server\Contracts\" />
+    <Folder Include="Server\Enums\" />
+    <Folder Include="Server\Exceptions\" />
+    <Folder Include="Server\Handlers\Contracts\" />
+    <Folder Include="Server\Http\Contracts\" />
+    <Folder Include="Server\Http\Response\" />
+    <Folder Include="Server\Routing\Contracts\" />
+  </ItemGroup>
+
 </Project>
