@@ -6,7 +6,10 @@
 
   <ItemGroup>
     <Folder Include="Routing\" />
-    <Folder Include="Results\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIS.HTTP\SIS.HTTP.csproj" />
   </ItemGroup>
 
 </Project>
