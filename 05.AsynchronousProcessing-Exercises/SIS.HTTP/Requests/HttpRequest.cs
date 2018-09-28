@@ -40,42 +40,94 @@
 
         private bool IsValidRequestQueryString(string queryString, string[] queryParameters)
         {
-            throw new NotImplementedException();
+            return string.IsNullOrEmpty(queryString) && queryParameters.Length >= 1;
         }
 
         private void ParseRequestMethod(string[] requestLine)
         {
-            throw new NotImplementedException();
+            HttpRequestMethod method;
+            if (Enum.TryParse<HttpRequestMethod>(requestLine[0], true, out method))
+            {
+                this.RequestMethod = method;
+            }
+
+            throw new BadRequestException();
         }
 
         private void ParseRequestUrl(string[] requestLine)
         {
-            throw new NotImplementedException();
+            this.Url = requestLine[1];
         }
 
         private void ParseRequestPath()
         {
-            throw new NotImplementedException();
+            var parts = this.Url.Split(new[] { '?' }, StringSplitOptions.RemoveEmptyEntries);
+            this.Path = parts[0];
         }
 
         private void ParseHeaders(string[] requestContent)
         {
-            throw new NotImplementedException();
+            foreach (var line in requestContent)
+            {
+                if (line == string.Empty)
+                {
+                    break;
+                }
+
+                var parts = line.Split(new[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                var header = new HttpHeader(parts[0], parts[1]);
+                this.Headers.Add(header);
+            }
+
+            if (!this.Headers.ContainsHeader(GlobalConstans.HostHeaderKey))
+            {
+                throw new BadRequestException();
+            }
         }
 
         private void ParseQueryParameters()
         {
-            throw new NotImplementedException();
+            var query = this.Url.Split(new[] { '?' }, StringSplitOptions.RemoveEmptyEntries);
+            var queryString = query[1];
+            if (query.Contains("#"))
+            {
+                queryString = query[1].Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries)[0];
+            }
+
+            if (string.IsNullOrEmpty(queryString))
+            {
+                throw new BadRequestException();
+            }
+
+            var queryParameters = queryString.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            this.IsValidRequestQueryString(queryString, queryParameters);
+
+            foreach (var pair in queryParameters)
+            {
+                var parts = pair.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                this.QueryData.Add(parts[0], parts[1]);
+            }
         }
 
         private void ParseFormDataParameters(string formData)
         {
-            throw new NotImplementedException();
+            if (this.RequestMethod == HttpRequestMethod.Get)
+            {
+                return;
+            }
+
+            var requestBodyParts = formData.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var pair in requestBodyParts)
+            {
+                var parts = pair.Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
+                this.FormData.Add(parts[0], parts[1]);
+            }
         }
 
         private void ParseRequestParameters(string formData)
         {
-            throw new NotImplementedException();
+            this.ParseQueryParameters();
+            this.ParseFormDataParameters(formData);
         }
 
         private void ParseRequest(string requestString)
