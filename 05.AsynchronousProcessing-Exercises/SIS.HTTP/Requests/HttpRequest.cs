@@ -98,6 +98,11 @@
         private void ParseQueryParameters()
         {
             var query = this.Url.Split(new[] { '?' }, StringSplitOptions.RemoveEmptyEntries);
+            if (query.Length <= 1)
+            {
+                return;
+            }
+
             var queryString = query[1];
             if (query.Contains("#"))
             {
@@ -121,7 +126,7 @@
 
         private void ParseFormDataParameters(string formData)
         {
-            if (this.RequestMethod == HttpRequestMethod.Get)
+            if (string.IsNullOrEmpty(formData))
             {
                 return;
             }
