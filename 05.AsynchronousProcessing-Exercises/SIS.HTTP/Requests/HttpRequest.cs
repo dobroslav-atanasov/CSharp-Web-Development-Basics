@@ -45,17 +45,18 @@
 
         private void ParseRequestMethod(string[] requestLine)
         {
-            HttpRequestMethod method;
-            if (Enum.TryParse<HttpRequestMethod>(requestLine[0], true, out method))
+            var isValidRequestMethod = Enum.TryParse<HttpRequestMethod>(requestLine[0], true, out var method);
+            if (!isValidRequestMethod)
             {
-                this.RequestMethod = method;
+                throw new BadRequestException();
             }
 
-            throw new BadRequestException();
+            this.RequestMethod = method;
         }
 
         private void ParseRequestUrl(string[] requestLine)
         {
+            // TODO create validation
             this.Url = requestLine[1];
         }
 
@@ -67,14 +68,19 @@
 
         private void ParseHeaders(string[] requestContent)
         {
+            if (!requestContent.Any())
+            {
+                throw new BadRequestException();
+            }
+
             foreach (var line in requestContent)
             {
-                if (line == string.Empty)
+                if (string.IsNullOrEmpty(line))
                 {
-                    break;
+                    return; 
                 }
 
-                var parts = line.Split(new[] { ' ', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                var parts = line.Split(new[] { ": " }, StringSplitOptions.RemoveEmptyEntries);
                 var header = new HttpHeader(parts[0], parts[1]);
                 this.Headers.Add(header);
             }
