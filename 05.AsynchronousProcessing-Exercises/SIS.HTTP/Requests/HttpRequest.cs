@@ -56,7 +56,11 @@
 
         private void ParseRequestUrl(string[] requestLine)
         {
-            // TODO create validation
+            if (!requestLine.Any())
+            {
+                throw new BadRequestException();
+            }
+
             this.Url = requestLine[1];
         }
 
