@@ -2,9 +2,9 @@
 {
     using Enums;
 
-    public class HttpResponseStatusExtensions
+    public static class HttpResponseStatusExtensions
     {
-        public string GetResponseLine(HttpResponseStatusCode statusCode)
+        public static string GetResponseLine(this HttpResponseStatusCode statusCode)
         {
             return $"{(int)statusCode} {statusCode}";
         }
