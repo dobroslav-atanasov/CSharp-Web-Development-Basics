@@ -53,10 +53,10 @@
 
         private IHttpResponse HandleRequest(IHttpRequest httpRequest)
         {
-            if (!this.serverRoutingTable.Routes.ContainsKey(httpRequest.RequestMethod) 
+            if (!this.serverRoutingTable.Routes.ContainsKey(httpRequest.RequestMethod)
                 || !this.serverRoutingTable.Routes[httpRequest.RequestMethod].ContainsKey(httpRequest.Path))
             {
-                return  new HttpResponse(HttpResponseStatusCode.NotFound);
+                return new HttpResponse(HttpResponseStatusCode.NotFound);
             }
 
             return this.serverRoutingTable.Routes[httpRequest.RequestMethod][httpRequest.Path].Invoke(httpRequest);
