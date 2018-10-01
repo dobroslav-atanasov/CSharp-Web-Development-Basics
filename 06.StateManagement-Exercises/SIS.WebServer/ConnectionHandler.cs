@@ -4,11 +4,13 @@
     using System.Net.Sockets;
     using System.Text;
     using System.Threading.Tasks;
+    using HTTP.Cookies;
     using HTTP.Enums;
     using HTTP.Requests;
     using HTTP.Requests.Contracts;
     using HTTP.Responses;
     using HTTP.Responses.Contracts;
+    using HTTP.Sessions;
     using Routing;
 
     public class ConnectionHandler
@@ -74,11 +76,41 @@
 
             if (httpRequest != null)
             {
-                var httpResponse = this.HandleRequest(httpRequest);
-                await this.PrepareResponse(httpResponse);
+                var sessionId = this.SetRequestSession(httpRequest);
+                var response = this.HandleRequest(httpRequest);
+
+                this.SetResponseSession(response, sessionId);
+                await this.PrepareResponse(response);
             }
 
             this.client.Shutdown(SocketShutdown.Both);
+        }
+
+        private string SetRequestSession(IHttpRequest request)
+        {
+            string sessionId = null;
+
+            if (request.Cookies.ContainsCookie(HttpSessionStorage.SessionCookieKey))
+            {
+                var cookie = request.Cookies.GetCookie(HttpSessionStorage.SessionCookieKey);
+                sessionId = cookie.Value;
+                request.Session = HttpSessionStorage.GetSession(sessionId);
+            }
+            else
+            {
+                sessionId = Guid.NewGuid().ToString();
+                request.Session = HttpSessionStorage.GetSession(sessionId);
+            }
+
+            return sessionId;
+        }
+
+        private void SetResponseSession(IHttpResponse response, string sessionId)
+        {
+            if (sessionId != null)
+            {
+                response.AddCookie(new HttpCookie(HttpSessionStorage.SessionCookieKey, $"{sessionId};HttpOnly=true"));
+            }
         }
     }
 }
