@@ -11,7 +11,7 @@ SoftUni course C# Web Development - Basics - September 2018: All tasks with thei
 - Web Server
 	- HTTP Protocol
 	- Asynchonous Processing
-	- State Managment
+	- State Management
 	- Databases - Entity Framework Core
 - Introduction to MVC
 - Advanced MVC Framework - IOC, Data Binding, Auto-Mapping
@@ -28,3 +28,4 @@ SoftUni course C# Web Development - Basics - September 2018: All tasks with thei
 3	|Http Protocol - Exercises							|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[Exercises](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/03.HttpProtocol)								|![Progress](http://progressed.io/bar/100?title=completed)
 4	|Asynchronous Processing - Lab						|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[Exercises](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/04.AsynchronousProcessing-Lab)					|![Progress](http://progressed.io/bar/100?title=completed)
 5	|Asynchronous Processing - Handmade HTTP Server		|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[Exercises](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/05.AsynchronousProcessing-Exercises)			|![Progress](http://progressed.io/bar/100?title=completed)
+6	|State Management - Handmade HTTP Server			|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[Exercises](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/06.StateManagement-Exercises)					|![Progress](http://progressed.io/bar/0)
