@@ -20,13 +20,13 @@
             this.IsNew = isNew;
         }
 
-        public string Key { get; set; }
+        public string Key { get; }
 
-        public string Value { get; set; }
+        public string Value { get; }
 
-        public DateTime Expires { get; set; }
+        public DateTime Expires { get; }
 
-        public bool IsNew { get; set; }
+        public bool IsNew { get; }
 
         public override string ToString()
         {

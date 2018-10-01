@@ -5,6 +5,8 @@
     using System.Linq;
     using Common;
     using Contracts;
+    using Cookies;
+    using Cookies.Contracts;
     using Enums;
     using Exceptions;
     using Extensions;
@@ -18,6 +20,7 @@
             this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();
+            this.Cookies = new HttpCookieCollection();
 
             this.ParseRequest(requestString);
         }
@@ -33,6 +36,8 @@
         public IHttpHeaderCollection Headers { get; }
 
         public HttpRequestMethod RequestMethod { get; private set; }
+
+        public IHttpCookieCollection Cookies { get; }
 
         private bool IsValidRequestLine(string[] requestLine)
         {
@@ -141,6 +146,29 @@
             this.ParseFormDataParameters(formData);
         }
 
+        private void ParseCookies()
+        {
+            if (!this.Headers.ContainsHeader("Cookie"))
+            {
+                return;
+            }
+
+            var cookieString = this.Headers.GetHeader("Cookie").Value;
+            if (string.IsNullOrEmpty(cookieString))
+            {
+                return;
+            }
+
+            var parts = cookieString.Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var part in parts)
+            {
+                var cookieParts = part.Split(new[] {'='}, StringSplitOptions.RemoveEmptyEntries);
+                var cookie = new HttpCookie(cookieParts[0], cookieParts[1], false);
+
+                this.Cookies.Add(cookie);
+            }
+        }
+
         private void ParseRequest(string requestString)
         {
             var requestParts = requestString.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
@@ -155,6 +183,7 @@
             this.ParseRequestUrl(requestLine);
             this.ParseRequestPath();
             this.ParseHeaders(requestParts.Skip(1).ToArray());
+            this.ParseCookies();
             this.ParseRequestParameters(requestParts[requestParts.Length - 1]);
         }
     }
