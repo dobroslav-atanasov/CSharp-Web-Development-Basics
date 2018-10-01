@@ -7,6 +7,7 @@
     using Contracts;
     using Enums;
     using Exceptions;
+    using Extensions;
     using Headers;
     using Headers.Contracts;
 
@@ -45,7 +46,7 @@
 
         private void ParseRequestMethod(string[] requestLine)
         {
-            var isValidRequestMethod = Enum.TryParse<HttpRequestMethod>(requestLine[0], true, out var method);
+            var isValidRequestMethod = Enum.TryParse<HttpRequestMethod>(requestLine[0].Capitalize(), true, out var method);
             if (!isValidRequestMethod)
             {
                 throw new BadRequestException();
@@ -97,17 +98,12 @@
 
         private void ParseQueryParameters()
         {
-            var query = this.Url.Split(new[] { '?' }, StringSplitOptions.RemoveEmptyEntries);
-            if (query.Length <= 1)
+            if (!this.Url.Contains("?"))
             {
                 return;
             }
 
-            var queryString = query[1];
-            if (query.Contains("#"))
-            {
-                queryString = query[1].Split(new[] { '#' }, StringSplitOptions.RemoveEmptyEntries)[0];
-            }
+            var queryString = this.Url.Split(new[] {'?', '#'}, StringSplitOptions.None)[1];
 
             if (string.IsNullOrEmpty(queryString))
             {
