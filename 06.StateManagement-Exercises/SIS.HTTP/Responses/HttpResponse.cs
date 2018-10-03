@@ -63,7 +63,10 @@
 
             if (this.Cookies.HasCookies())
             {
-                sb.AppendLine($"Set-Cookie: {this.Cookies}");
+                foreach (var httpCookie in this.Cookies)
+                {
+                    sb.AppendLine($"Set-Cookie: {this.Cookies}");
+                }
             }
 
             sb.AppendLine();

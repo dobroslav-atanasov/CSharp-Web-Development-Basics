@@ -34,7 +34,7 @@
 
         public override string ToString()
         {
-            return $"{this.Key}={this.Value}; Expires={this.Expires.ToString("R")}";
+            return $"{this.Key}={this.Value}; Expires={this.Expires:R}";
         }
     }
 }

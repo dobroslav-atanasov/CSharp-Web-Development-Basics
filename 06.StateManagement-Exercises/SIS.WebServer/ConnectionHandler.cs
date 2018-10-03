@@ -113,7 +113,7 @@
         {
             if (sessionId != null)
             {
-                response.AddCookie(new HttpCookie(HttpSessionStorage.SessionCookieKey, $"{sessionId};HttpOnly=true"));
+                response.AddCookie(new HttpCookie(HttpSessionStorage.SessionCookieKey, $"{sessionId}; HttpOnly"));
             }
         }
     }

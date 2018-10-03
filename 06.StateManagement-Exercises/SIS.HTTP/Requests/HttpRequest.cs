@@ -115,6 +115,11 @@
 
             var queryString = this.Url.Split(new[] {'?', '#'}, StringSplitOptions.None)[1];
 
+            if (string.IsNullOrWhiteSpace(queryString))
+            {
+                return;
+            }
+
             if (string.IsNullOrEmpty(queryString))
             {
                 throw new BadRequestException();
@@ -167,7 +172,7 @@
             var parts = cookieString.Split(new[] {"; "}, StringSplitOptions.RemoveEmptyEntries);
             foreach (var part in parts)
             {
-                var cookieParts = part.Split(new[] {'='}, StringSplitOptions.RemoveEmptyEntries);
+                var cookieParts = part.Split(new[] {'='}, 2, StringSplitOptions.RemoveEmptyEntries);
                 var cookie = new HttpCookie(cookieParts[0], cookieParts[1], false);
 
                 this.Cookies.Add(cookie);
