@@ -18,6 +18,8 @@
     {
         public HttpRequest(string requestString)
         {
+            CoreValidator.ThrowIfNullOrEmpty(requestString, nameof(requestString));
+
             this.FormData = new Dictionary<string, object>();
             this.QueryData = new Dictionary<string, object>();
             this.Headers = new HttpHeaderCollection();

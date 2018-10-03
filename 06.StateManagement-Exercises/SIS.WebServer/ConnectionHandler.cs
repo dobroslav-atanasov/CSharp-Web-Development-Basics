@@ -4,6 +4,7 @@
     using System.Net.Sockets;
     using System.Text;
     using System.Threading.Tasks;
+    using HTTP.Common;
     using HTTP.Cookies;
     using HTTP.Enums;
     using HTTP.Requests;
@@ -20,6 +21,9 @@
 
         public ConnectionHandler(Socket client, ServerRoutingTable serverRoutingTable)
         {
+            CoreValidator.ThrowIfNull(client, nameof(client));
+            CoreValidator.ThrowIfNull(serverRoutingTable, nameof(serverRoutingTable));
+
             this.client = client;
             this.serverRoutingTable = serverRoutingTable;
         }

@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common;
     using Contracts;
 
     public class HttpHeaderCollection : IHttpHeaderCollection
@@ -15,16 +16,22 @@
 
         public void Add(HttpHeader header)
         {
+            CoreValidator.ThrowIfNull(header, nameof(header));
+
             this.headers[header.Key] = header;
         }
 
         public bool ContainsHeader(string key)
         {
+            CoreValidator.ThrowIfNull(key, nameof(key));
+
             return this.headers.ContainsKey(key);
         }
 
         public HttpHeader GetHeader(string key)
         {
+            CoreValidator.ThrowIfNull(key, nameof(key));
+
             return this.headers[key];
         }
 
