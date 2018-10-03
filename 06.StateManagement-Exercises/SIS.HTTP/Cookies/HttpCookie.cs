@@ -32,9 +32,17 @@
 
         public bool IsNew { get; }
 
+        public bool HttpOnly { get; set; } = true;
+
         public override string ToString()
         {
-            return $"{this.Key}={this.Value}; Expires={this.Expires:R}";
+            var result = $"{this.Key}={this.Value}; Expires={this.Expires:R}";
+            if (this.HttpOnly)
+            {
+                result += "; HttpOnly";
+            }
+
+            return result;
         }
     }
 }
