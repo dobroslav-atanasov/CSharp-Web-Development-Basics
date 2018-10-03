@@ -1,6 +1,7 @@
 ﻿namespace SIS.HTTP.Cookies
 {
     using System;
+    using Common;
 
     public class HttpCookie
     {
@@ -8,6 +9,9 @@
 
         public HttpCookie(string key, string value, int expires = HttpCookieDefaultExpiresDays)
         {
+            CoreValidator.ThrowIfNullOrEmpty(key, nameof(key));
+            CoreValidator.ThrowIfNullOrEmpty(value, nameof(value));
+            
             this.Key = key;
             this.Value = value;
             this.IsNew = true;
