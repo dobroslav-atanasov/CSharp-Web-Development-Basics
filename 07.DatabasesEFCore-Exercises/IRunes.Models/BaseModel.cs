@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace IRunes.Models
+﻿namespace IRunes.Models
 {
     public abstract class BaseModel<T>
     {
