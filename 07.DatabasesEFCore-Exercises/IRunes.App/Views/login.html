@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>IRunes</title>
+    <title>Login</title>
 </head>
 <body>
     <h1>IRunes</h1>
@@ -15,9 +15,20 @@
         </ul>
     </div>
     <hr />
-    <h1>Welcome to IRunes</h1>
-    <h2><a href="/login">Login</a> if you have an account.</h2>
-    <h2><a href="/register">Register</a> if you don't.</h2>
+    <h1>Login</h1>
+    <form method="post" action="/login">
+        <div>
+            Username/Email:
+            <input type="text" name="username" placeholder="Username or Email" />
+        </div>
+        <div>
+            Password:
+            <input type="password" name="password" placeholder="Password" />
+        </div>
+        <div>
+            <input type="submit" value="Login" />
+        </div>
+    </form>
     <hr />
     <div>Copy Right &copy; Classics Design Studio. All right reserved.</div>
 </body>
