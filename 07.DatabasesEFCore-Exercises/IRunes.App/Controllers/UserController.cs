@@ -10,12 +10,27 @@
     {
         public IHttpResponse Login()
         {
-            var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/login.html");
+            var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/User/login.html");
 
             return new HtmlResult(content, HttpResponseStatusCode.Ok);
         }
 
         public IHttpResponse Login(IHttpRequest request)
+        {
+            var username = request.FormData["username"].ToString();
+            var password = request.FormData["password"].ToString();
+
+            return new RedirectResult("/");
+        }
+
+        public IHttpResponse Register()
+        {
+            var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/User/register.html");
+
+            return new HtmlResult(content, HttpResponseStatusCode.Ok);
+        }
+
+        public IHttpResponse Register(IHttpRequest request)
         {
             var username = request.FormData["username"].ToString();
             var password = request.FormData["password"].ToString();

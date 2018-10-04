@@ -9,7 +9,7 @@
     {
         public IHttpResponse Index()
         {
-            var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/index.html");
+            var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/Home/index.html");
 
             return new HtmlResult(content, HttpResponseStatusCode.Ok);
         }
