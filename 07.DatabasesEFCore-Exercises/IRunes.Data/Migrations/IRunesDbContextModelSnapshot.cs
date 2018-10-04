@@ -26,6 +26,12 @@ namespace IRunes.Data.Migrations
                     .HasAnnotation("SqlServer:ValueGenerationStrategy",
                         SqlServerValueGenerationStrategy.IdentityColumn);
 
+                b.Property<string>("Cover");
+
+                b.Property<string>("Name");
+
+                b.Property<decimal>("Price");
+
                 b.HasKey("Id");
 
                 b.ToTable("Albums");
@@ -38,7 +44,17 @@ namespace IRunes.Data.Migrations
                     .HasAnnotation("SqlServer:ValueGenerationStrategy",
                         SqlServerValueGenerationStrategy.IdentityColumn);
 
+                b.Property<int>("AlbumId");
+
+                b.Property<string>("Link");
+
+                b.Property<string>("Name");
+
+                b.Property<decimal>("Price");
+
                 b.HasKey("Id");
+
+                b.HasIndex("AlbumId");
 
                 b.ToTable("Tracks");
             });
@@ -50,9 +66,23 @@ namespace IRunes.Data.Migrations
                     .HasAnnotation("SqlServer:ValueGenerationStrategy",
                         SqlServerValueGenerationStrategy.IdentityColumn);
 
+                b.Property<string>("Email");
+
+                b.Property<string>("Password");
+
+                b.Property<string>("Username");
+
                 b.HasKey("Id");
 
                 b.ToTable("Users");
+            });
+
+            modelBuilder.Entity("IRunes.Models.Track", b =>
+            {
+                b.HasOne("IRunes.Models.Album", "Album")
+                    .WithMany("Tracks")
+                    .HasForeignKey("AlbumId")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 #pragma warning restore 612, 618
         }

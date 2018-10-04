@@ -10,8 +10,5 @@
 
         public int AlbumId { get; set; }
         public virtual Album Album { get; set; }
-
-        public int UserId { get; set; }
-        public virtual User User { get; set; }
     }
 }
