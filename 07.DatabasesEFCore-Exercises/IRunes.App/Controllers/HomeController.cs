@@ -7,8 +7,6 @@
 
     public class HomeController
     {
-        private const string FolderPath = "../../../Views/";
-
         public IHttpResponse Index()
         {
             var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/index.html");
