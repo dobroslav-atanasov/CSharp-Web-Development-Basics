@@ -1,17 +1,12 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using System.IO;
-    using SIS.HTTP.Enums;
     using SIS.HTTP.Responses.Contracts;
-    using SIS.WebServer.Results;
 
-    public class HomeController
+    public class HomeController : Controller
     {
         public IHttpResponse Index()
         {
-            var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/Home/index.html");
-
-            return new HtmlResult(content, HttpResponseStatusCode.Ok);
+            return this.View("/Home/index");
         }
     }
 }
