@@ -11,6 +11,6 @@
 
         Track GetTrack(int trackId);
 
-        List<Track> GetAllTracks();
+        List<Track> GetAllTracks(int albumId);
     }
 }

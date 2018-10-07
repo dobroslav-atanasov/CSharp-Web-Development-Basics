@@ -49,11 +49,14 @@
             }
         }
 
-        public List<Track> GetAllTracks()
+        public List<Track> GetAllTracks(int albumId)
         {
             using (var context = new IRunesDbContext())
             {
-                var allTracks = context.Tracks.ToList();
+                var allTracks = context
+                    .Tracks
+                    .Where(t => t.AlbumId == albumId)
+                    .ToList();
 
                 return allTracks;
             }

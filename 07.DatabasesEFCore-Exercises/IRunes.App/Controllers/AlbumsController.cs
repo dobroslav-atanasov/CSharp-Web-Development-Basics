@@ -111,7 +111,7 @@
             this.ViewBag["price"] = $"${this.albumsService.GetTotalPrice(albumId):F2}";
             this.ViewBag["albumId"] = albumId.ToString();
 
-            var allTracks = this.trackService.GetAllTracks();
+            var allTracks = this.trackService.GetAllTracks(albumId);
             var sb = new StringBuilder();
             if (allTracks.Any())
             {
