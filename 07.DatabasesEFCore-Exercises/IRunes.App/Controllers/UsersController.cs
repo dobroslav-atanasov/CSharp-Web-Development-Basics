@@ -22,7 +22,7 @@
 
         public IHttpResponse Login()
         {
-            return this.View("/Users/login");
+            return this.View();
         }
 
         public IHttpResponse Login(IHttpRequest request)
@@ -34,13 +34,13 @@
 
             if (!this.userService.ContainsUser(username))
             {
-                return this.BadRequestError($"User {username} does not exist!");
+                //return this.BadRequestError($"User {username} does not exist!");
             }
 
             var user = this.userService.GetUser(username, hashPassword);
             if (user == null)
             {
-                return this.BadRequestError($"Invalid username or password!");
+                //return this.BadRequestError($"Invalid username or password!");
             }
 
             var response = new RedirectResult("/");
@@ -53,7 +53,7 @@
 
         public IHttpResponse Register()
         {
-            return this.View("/Users/register");
+            return this.View();
         }
 
         public IHttpResponse Register(IHttpRequest request)
@@ -65,17 +65,17 @@
 
             if (username.Length < 4 || password.Length < 4)
             {
-                return this.BadRequestError("Invalid user data!");
+                //return this.BadRequestError("Invalid user data!");
             }
 
             if (password != confirmPassword)
             {
-                return this.BadRequestError("Passwords are different!");
+                //return this.BadRequestError("Passwords are different!");
             }
 
             if (this.userService.ContainsUser(username))
             {
-                return this.BadRequestError($"User {username} already exists!");
+                //return this.BadRequestError($"User {username} already exists!");
             }
 
             var hashedPassword = this.hashService.Hash(password);

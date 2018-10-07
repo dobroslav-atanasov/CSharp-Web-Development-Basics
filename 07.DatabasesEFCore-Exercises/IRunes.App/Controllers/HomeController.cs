@@ -6,7 +6,7 @@
     {
         public IHttpResponse Index()
         {
-            return this.View("/Home/index");
+            return this.View();
         }
     }
 }

@@ -7,9 +7,10 @@
 
     public class BadRequestResult : HttpResponse
     {
-        public BadRequestResult(string content, HttpResponseStatusCode responseStatusCode)
+        public BadRequestResult(HttpResponseStatusCode responseStatusCode)
             : base(responseStatusCode)
         {
+            var content = "<h1>404 Page Not Found Error</h1>";
             this.Headers.Add(new HttpHeader(HttpHeader.ContentType, "text/html"));
             this.Content = Encoding.UTF8.GetBytes(content);
         }
