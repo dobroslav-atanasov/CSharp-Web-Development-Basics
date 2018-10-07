@@ -64,6 +64,11 @@
             this.ViewBag["error"] = errorMessage;
         }
 
+        protected void SetViewBagData()
+        {
+            this.ViewBag["showError"] = "none";
+        }
+
         private string GetController()
         {
             var controllerName = this.GetType().Name.Replace(ControllerSuffixName, string.Empty);

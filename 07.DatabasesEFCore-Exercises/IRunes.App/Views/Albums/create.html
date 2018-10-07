@@ -16,6 +16,9 @@
     </div>
     <hr />
     <h1>Create Album</h1>
+    <div style="display: {{showError}}; color: red">
+        {{error}}
+    </div>
     <form method="post" action="/albums/create">
         <div>
             Name:
@@ -30,9 +33,9 @@
         </div>
     </form>
     <hr />
-        <div>
-            <a href="/albums/all">Back To All</a>
-        </div>
+    <div>
+        <a href="/albums/all">Back To All</a>
+    </div>
     <hr />
     <div>Copy Right &copy; Classics Design Studio. All right reserved.</div>
 </body>

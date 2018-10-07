@@ -90,10 +90,5 @@
             request.Session.ClearParameters();
             return new RedirectResult("/");
         }
-
-        private void SetViewBagData()
-        {
-            this.ViewBag["showError"] = "none";
-        }
     }
 }
