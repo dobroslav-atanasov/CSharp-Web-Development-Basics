@@ -16,7 +16,7 @@
             return cookieContent;
         }
 
-        public string GetuserData(string cookieContent)
+        public string GetUserData(string cookieContent)
         {
             var username = this.DecryptString(cookieContent, EncryptKey);
             return username;

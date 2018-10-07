@@ -4,6 +4,6 @@
     {
         string GetUserCookie(string username);
 
-        string GetuserData(string cookieContent);
+        string GetUserData(string cookieContent);
     }
 }

@@ -10,7 +10,7 @@
         protected IHttpResponse View(string viewName)
         {
             //var content = File.ReadAllText($"{Directory.GetCurrentDirectory()}/Views/{viewName}.html");
-            var content = File.ReadAllText($"../../../Views{viewName}.html");
+            var content = File.ReadAllText($"../../../Views/{viewName}.html");
             return new HtmlResult(content, HttpResponseStatusCode.Ok);
         }
 

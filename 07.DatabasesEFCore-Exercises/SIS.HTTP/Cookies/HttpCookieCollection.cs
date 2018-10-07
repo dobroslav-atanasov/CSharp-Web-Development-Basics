@@ -16,7 +16,10 @@
 
         public void Add(HttpCookie cookie)
         {
-            this.cookies[cookie.Key] = cookie;
+            if (!this.ContainsCookie(cookie.Key))
+            {
+                this.cookies[cookie.Key] = cookie;
+            }
         }
 
         public bool ContainsCookie(string key)
@@ -46,7 +49,7 @@
         {
             return this.GetEnumerator();
         }
-        
+
         public override string ToString()
         {
             return string.Join("; ", this.cookies.Values);

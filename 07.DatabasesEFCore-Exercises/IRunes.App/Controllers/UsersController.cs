@@ -1,10 +1,8 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using System.IO;
-    using IRunes.Services;
-    using IRunes.Services.Contracts;
+    using Services;
+    using Services.Contracts;
     using SIS.HTTP.Cookies;
-    using SIS.HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
     using SIS.WebServer.Results;
@@ -47,7 +45,7 @@
 
             var response = new RedirectResult("/");
             var cookieContent = this.userCookieService.GetUserCookie(username);
-            var cookie = new HttpCookie(".auth-cakes", cookieContent, 3);
+            var cookie = new HttpCookie(".auth-irunes", cookieContent, 3);
             response.AddCookie(cookie);
 
             return response;
@@ -75,17 +73,17 @@
                 return this.BadRequestError("Passwords are different!");
             }
 
-            //if (this.userService.ContainsUser(username))
-            //{
-            //    return this.BadRequestError($"User {username} already exists!");
-            //}
+            if (this.userService.ContainsUser(username))
+            {
+                return this.BadRequestError($"User {username} already exists!");
+            }
 
             var hashedPassword = this.hashService.Hash(password);
 
-            //this.userService.AddUser(username, hashedPassword, email);
+            this.userService.AddUser(username, hashedPassword, email);
             var response = new RedirectResult("/");
             var cookieContent = this.userCookieService.GetUserCookie(username);
-            var cookie = new HttpCookie(".auth-cakes",cookieContent, 3);
+            var cookie = new HttpCookie(".auth-irunes",cookieContent, 3);
             response.AddCookie(cookie);
 
             return response;
@@ -93,12 +91,12 @@
 
         public IHttpResponse Logout(IHttpRequest request)
         {
-            if (!request.Cookies.ContainsCookie(".auth-cakes"))
+            if (!request.Cookies.ContainsCookie(".auth-irunes"))
             {
                 return new RedirectResult("/");
             }
 
-            var cookie = request.Cookies.GetCookie(".auth-cakes");
+            var cookie = request.Cookies.GetCookie(".auth-irunes");
             cookie.Delete();
             var response = new RedirectResult("/");
             response.Cookies.Add(cookie);
