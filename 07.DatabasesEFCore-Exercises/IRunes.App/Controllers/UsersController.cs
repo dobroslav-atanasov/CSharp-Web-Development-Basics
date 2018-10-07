@@ -11,13 +11,11 @@
     {
         private readonly IUserService userService;
         private readonly IHashService hashService;
-        private readonly IUserCookieService userCookieService;
 
         public UsersController()
         {
             this.userService = new UserService();
             this.hashService = new HashService();
-            this.userCookieService = new UserCookieServer();
         }
 
         public IHttpResponse Login(IHttpRequest request)
@@ -27,8 +25,21 @@
 
         public IHttpResponse DoLogin(IHttpRequest request)
         {
+            var username = request.FormData["username"].ToString();
+            var password = request.FormData["password"].ToString();
 
-            return null;
+            var hashPassword = this.hashService.Hash(password);
+            var user = this.userService.GetUser(username, hashPassword);
+
+            if (user == null)
+            {
+                return new RedirectResult("/users/login");
+            }
+
+            var response = new RedirectResult("/");
+            this.SignInUser(username, request, response);
+
+            return new RedirectResult("/");
 
             //var username = request.FormData["username"].ToString();
             //var password = request.FormData["password"].ToString();
@@ -61,7 +72,22 @@
 
         public IHttpResponse DoRegister(IHttpRequest request)
         {
-            return null;
+            var username = request.FormData["username"].ToString();
+            var password = request.FormData["password"].ToString();
+            var confirmPassword = request.FormData["confirmPassword"].ToString();
+            var email = request.FormData["email"].ToString();
+
+            // TODO Validation
+
+            var hashPassword = this.hashService.Hash(password);
+            this.userService.AddUser(username, hashPassword, email);
+
+            var response = new RedirectResult("/");
+            this.SignInUser(username, request, response);
+
+            return response;
+
+
             //var username = request.FormData["username"].ToString();
             //var password = request.FormData["password"].ToString();
             //var confirmPassword = request.FormData["confirmPassword"].ToString();
@@ -95,17 +121,13 @@
 
         public IHttpResponse Logout(IHttpRequest request)
         {
-            if (!request.Cookies.ContainsCookie(".auth-irunes"))
+            if (!request.Session.ContainsParameter("username"))
             {
                 return new RedirectResult("/");
             }
 
-            var cookie = request.Cookies.GetCookie(".auth-irunes");
-            cookie.Delete();
-            var response = new RedirectResult("/");
-            response.Cookies.Add(cookie);
-
-            return response;
+            request.Session.ClearParameters();
+            return new RedirectResult("/");
         }
     }
 }
