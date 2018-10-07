@@ -2,13 +2,15 @@
 {
     using Services;
     using Services.Contracts;
-    using SIS.HTTP.Cookies;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
     using SIS.WebServer.Results;
 
     public class UsersController : Controller
     {
+        private const string InvalidUsernameOrPassword = "<h2>Invalid username, email or password!</h2>";
+        private const string InvalidUsernameOrPasswordLength = "<h2>Invalid user data!</h2>";
+
         private readonly IUserService userService;
         private readonly IHashService hashService;
 
@@ -18,59 +20,39 @@
             this.hashService = new HashService();
         }
 
-        public IHttpResponse Login(IHttpRequest request)
+        public IHttpResponse Login()
         {
+            this.SetViewBagData();
             return this.View();
         }
-
-        public IHttpResponse DoLogin(IHttpRequest request)
+        
+        public IHttpResponse Login(IHttpRequest request)
         {
-            var username = request.FormData["username"].ToString();
+            var usernameOrEmail = request.FormData["usernameOrEmail"].ToString();
             var password = request.FormData["password"].ToString();
 
             var hashPassword = this.hashService.Hash(password);
-            var user = this.userService.GetUser(username, hashPassword);
+            var user = this.userService.GetUserWithUsernameOrEmail(usernameOrEmail, hashPassword);
 
             if (user == null)
             {
-                return new RedirectResult("/users/login");
+                this.ApplyError(InvalidUsernameOrPassword);
+                return this.View();
             }
 
             var response = new RedirectResult("/");
-            this.SignInUser(username, request, response);
+            this.SignInUser(usernameOrEmail, request, response);
 
             return new RedirectResult("/");
-
-            //var username = request.FormData["username"].ToString();
-            //var password = request.FormData["password"].ToString();
-
-            //var hashPassword = this.hashService.Hash(password);
-
-            //if (!this.userService.ContainsUser(username))
-            //{
-            //    //return this.BadRequestError($"User {username} does not exist!");
-            //}
-
-            //var user = this.userService.GetUser(username, hashPassword);
-            //if (user == null)
-            //{
-            //    //return this.BadRequestError($"Invalid username or password!");
-            //}
-
-            //var response = new RedirectResult("/");
-            //var cookieContent = this.userCookieService.GetUserCookie(username);
-            //var cookie = new HttpCookie(".auth-irunes", cookieContent, 3);
-            //response.AddCookie(cookie);
-
-            //return response;
         }
 
-        public IHttpResponse Register(IHttpRequest request)
+        public IHttpResponse Register()
         {
+            this.SetViewBagData();
             return this.View();
         }
 
-        public IHttpResponse DoRegister(IHttpRequest request)
+        public IHttpResponse Register(IHttpRequest request)
         {
             var username = request.FormData["username"].ToString();
             var password = request.FormData["password"].ToString();
@@ -78,13 +60,16 @@
             var email = request.FormData["email"].ToString();
 
             // TODO Validation
+            if (username.Length < 4 || password.Length < 4)
+            {
+                this.ApplyError("");
+            }
 
             var hashPassword = this.hashService.Hash(password);
             this.userService.AddUser(username, hashPassword, email);
 
             var response = new RedirectResult("/");
             this.SignInUser(username, request, response);
-
             return response;
 
 
@@ -128,6 +113,11 @@
 
             request.Session.ClearParameters();
             return new RedirectResult("/");
+        }
+
+        private void SetViewBagData()
+        {
+            this.ViewBag["showError"] = "none";
         }
     }
 }

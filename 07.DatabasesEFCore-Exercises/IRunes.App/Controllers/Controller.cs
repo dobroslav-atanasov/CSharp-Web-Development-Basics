@@ -58,6 +58,12 @@
             return request.Session.ContainsParameter("username");
         }
 
+        protected void ApplyError(string errorMessage)
+        {
+            this.ViewBag["showError"] = "block";
+            this.ViewBag["error"] = errorMessage;
+        }
+
         private string GetController()
         {
             var controllerName = this.GetType().Name.Replace(ControllerSuffixName, string.Empty);

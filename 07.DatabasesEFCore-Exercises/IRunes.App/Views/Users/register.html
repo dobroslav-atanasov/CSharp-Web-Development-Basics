@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -16,6 +15,9 @@
     </div>
     <hr />
     <h1>Register</h1>
+    <div style="display: {{showError}}; color: red">
+        {{error}}
+    </div>
     <form method="post" action="/users/register">
         <div>
             Username:

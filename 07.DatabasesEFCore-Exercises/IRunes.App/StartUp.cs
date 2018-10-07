@@ -17,10 +17,10 @@
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/"] = request => new HomeController().Index(request);
 
             // UsersController
-            serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/login"] = request => new UsersController().Login(request);
-            serverRoutingTable.Routes[HttpRequestMethod.Post]["/users/login"] = request => new UsersController().DoLogin(request);
-            serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/register"] = request => new UsersController().Register(request);
-            serverRoutingTable.Routes[HttpRequestMethod.Post]["/users/register"] = request => new UsersController().DoRegister(request);
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/login"] = request => new UsersController().Login();
+            serverRoutingTable.Routes[HttpRequestMethod.Post]["/users/login"] = request => new UsersController().Login(request);
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/register"] = request => new UsersController().Register();
+            serverRoutingTable.Routes[HttpRequestMethod.Post]["/users/register"] = request => new UsersController().Register(request);
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/logout"] = request => new UsersController().Logout(request);
 
             // AlbumsController

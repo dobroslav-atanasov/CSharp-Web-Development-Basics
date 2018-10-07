@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -16,10 +15,13 @@
     </div>
     <hr />
     <h1>Login</h1>
+    <div style="display: {{showError}}; color: red">
+        {{error}}
+    </div>
     <form method="post" action="/users/login">
         <div>
             Username/Email:
-            <input type="text" name="username" placeholder="Username or Email" />
+            <input type="text" name="usernameOrEmail" placeholder="Username or Email" />
         </div>
         <div>
             Password:
