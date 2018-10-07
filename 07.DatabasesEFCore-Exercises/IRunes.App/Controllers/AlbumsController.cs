@@ -5,6 +5,7 @@
     using System.Web;
     using Services;
     using Services.Contracts;
+    using SIS.HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
     using SIS.WebServer.Results;
@@ -13,6 +14,7 @@
     {
         private const string AlbumExists = "<h1>Album already exists!</h1>";
         private const string NoAlbums = "There are currently no albums.";
+        private const string AlbumDoesNotExist = "Album does not exist!";
 
         private readonly IAlbumsService albumsService;
 
@@ -34,7 +36,7 @@
             {
                 foreach (var album in allAlbums)
                 {
-                    var albumText = $@"<div><a href=/albums/create>{album.Name}</a></div><br/>";
+                    var albumText = $@"<div><a href=/albums/details?id={album.Id}>{album.Name}</a></div><br/>";
                     sb.AppendLine(albumText);
                 }
 
@@ -77,6 +79,53 @@
 
             var response = new RedirectResult("/albums/all");
             return response;
+        }
+
+        public IHttpResponse Details(IHttpRequest request)
+        {
+            if (!this.IsAuthenticated(request))
+            {
+                return new RedirectResult("/users/login");
+            }
+
+            if (!request.QueryData.ContainsKey("id"))
+            {
+                this.ApplyError(AlbumDoesNotExist);
+                return new RedirectResult("/albums/all");
+            }
+
+            var albumId = int.Parse(request.QueryData["id"].ToString());
+            var album = this.albumsService.GetAlbum(albumId);
+
+            if (album == null)
+            {
+                this.ApplyError(AlbumDoesNotExist);
+                return new BadRequestResult(HttpResponseStatusCode.NotFound);
+            }
+
+            this.ViewBag["cover"] = album.Cover;
+            this.ViewBag["name"] = album.Name;
+            this.ViewBag["price"] = $"${this.albumsService.GetTotalPrice(albumId):F2}";
+
+            // TODO
+            //var allTracks = this.albumsService.GetAllAlbums();
+            //var sb = new StringBuilder();
+            //if (allAlbums.Any())
+            //{
+            //    foreach (var album in allAlbums)
+            //    {
+            //        var albumText = $@"<div><a href=/albums/details?id={album.Id}>{album.Name}</a></div><br/>";
+            //        sb.AppendLine(albumText);
+            //    }
+
+            //    this.ViewBag["allAlbums"] = sb.ToString();
+            //}
+            //else
+            //{
+            //    this.ViewBag["allAlbums"] = NoAlbums;
+            //}
+
+            return this.View();
         }
     }
 }

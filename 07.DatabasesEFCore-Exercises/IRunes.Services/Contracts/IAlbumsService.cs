@@ -12,5 +12,7 @@
         void AddAlbum(string name, string cover);
 
         List<Album> GetAllAlbums();
+
+        decimal GetTotalPrice(int id);
     }
 }

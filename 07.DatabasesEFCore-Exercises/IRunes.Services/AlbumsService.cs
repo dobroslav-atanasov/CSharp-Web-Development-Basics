@@ -8,9 +8,18 @@
 
     public class AlbumsService : IAlbumsService
     {
+        private const decimal Discount = 0.13m;
+
         public Album GetAlbum(int id)
         {
-            throw new System.NotImplementedException();
+            using (var context = new IRunesDbContext())
+            {
+                var album = context
+                    .Albums
+                    .Find(id);
+
+                return album;
+            }
         }
 
         public bool ContainsAlbum(string name)
@@ -47,6 +56,19 @@
                 var allAlbums = context.Albums.ToList();
 
                 return allAlbums;
+            }
+        }
+
+        public decimal GetTotalPrice(int id)
+        {
+            using (var context = new IRunesDbContext())
+            {
+                var totalPrice = context
+                    .Tracks
+                    .Where(t => t.AlbumId == id)
+                    .Sum(t => (t.Price - t.Price * Discount));
+
+                return totalPrice;
             }
         }
     }

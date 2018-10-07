@@ -27,7 +27,7 @@
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/albums/all"] = request => new AlbumsController().All(request);
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/albums/create"] = request => new AlbumsController().Create(request);
             serverRoutingTable.Routes[HttpRequestMethod.Post]["/albums/create"] = request => new AlbumsController().DoCreate(request);
-
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/albums/details"] = request => new AlbumsController().Details(request);
             // TracksController
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/create-track"] = request => new TracksController().Create();
             serverRoutingTable.Routes[HttpRequestMethod.Post]["/create-track"] = request => new TracksController().Create(request);
