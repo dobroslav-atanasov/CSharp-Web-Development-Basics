@@ -13,6 +13,7 @@
         private const string AlbumDoesNotExist = "Album does not exist!";
         private const string InvalidData = "Invalid data!";
         private const string TrackAlreadyExists = "Track already exists!";
+        private const string TrackDoesNotExist = "Track does not exist!";
 
         private readonly IAlbumsService albumsService;
         private readonly ITrackService trackService;
@@ -89,6 +90,33 @@
 
         public IHttpResponse Details(IHttpRequest request)
         {
+            if (!this.IsAuthenticated(request))
+            {
+                return new RedirectResult("/users/login");
+            }
+
+            if (!request.QueryData.ContainsKey("albumId") || !request.QueryData.ContainsKey("trackId"))
+            {
+                this.ApplyError(AlbumDoesNotExist);
+                return new RedirectResult("/albums/all");
+            }
+
+            var albumId = int.Parse(request.QueryData["albumId"].ToString());
+            var trackId = int.Parse(request.QueryData["trackId"].ToString());
+
+            var track = this.trackService.GetTrack(trackId);
+
+            if (track == null)
+            {
+                this.ApplyError(TrackDoesNotExist);
+                return new BadRequestResult(HttpResponseStatusCode.NotFound);
+            }
+
+            this.ViewBag["name"] = track.Name;
+            this.ViewBag["price"] = $"${track.Price}";
+            this.ViewBag["albumId"] = albumId.ToString();
+            this.ViewBag["link"] = track.Link;
+
             return this.View();
         }
     }

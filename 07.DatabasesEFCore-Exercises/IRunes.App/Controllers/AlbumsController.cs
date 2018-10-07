@@ -118,7 +118,7 @@
                 sb.AppendLine("<ol>");
                 foreach (var track in allTracks)
                 {
-                    var trackText = $@"<li><div><a href=/tracks/details?id={track.Id}>{track.Name}</a></div></li><br/>";
+                    var trackText = $@"<li><div><a href=/tracks/details?albumId={albumId}&trackId={track.Id}>{track.Name}</a></div></li><br/>";
                     sb.AppendLine(trackText);
                 }
                 sb.AppendLine("</ol>");

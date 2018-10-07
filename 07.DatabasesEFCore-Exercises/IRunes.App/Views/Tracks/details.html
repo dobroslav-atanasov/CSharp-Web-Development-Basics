@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>Album Details</title>
+    <title>Track Details</title>
 </head>
 <body>
     <h1>IRunes</h1>
@@ -15,20 +15,15 @@
         </ul>
     </div>
     <hr />
-    <div><img src="{{cover}}" width="200" alt="AlbumImage" /></div>
+    <iframe width="300" src="{{link}}"></iframe>
+    <!--<video controls="true">
+        <source src="{{link}}" type="video/mp4" />
+    </video>-->
     <h3>Name: {{name}}</h3>
     <h3>Price: {{price}}</h3>
-    <br />
-    <h3>Tracks</h3>
     <hr />
     <div>
-        <a href="/tracks/create?albumId={{albumId}}">Create Track</a>
-    </div>
-    <hr />
-    {{allTracks}}
-    <hr />
-    <div>
-        <a href="/albums/all">Back To All</a>
+        <a href="/albums/details?id={{albumId}}">Back To Album</a>
     </div>
     <hr />
     <div>Copy Right &copy; Classics Design Studio. All right reserved.</div>
