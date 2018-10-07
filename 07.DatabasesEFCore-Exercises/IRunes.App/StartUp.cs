@@ -3,6 +3,7 @@
     using Controllers;
     using SIS.HTTP.Enums;
     using SIS.WebServer;
+    using SIS.WebServer.Results;
     using SIS.WebServer.Routing;
 
     public class StartUp
@@ -12,13 +13,14 @@
             var serverRoutingTable = new ServerRoutingTable();
 
             // HomeController
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/home/index"] = request => new RedirectResult("/");
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/"] = request => new HomeController().Index();
 
             // UserController
-            serverRoutingTable.Routes[HttpRequestMethod.Get]["/login"] = request => new UsersController().Login();
-            serverRoutingTable.Routes[HttpRequestMethod.Post]["/login"] = request => new UsersController().Login(request);
-            serverRoutingTable.Routes[HttpRequestMethod.Get]["/register"] = request => new UsersController().Register();
-            serverRoutingTable.Routes[HttpRequestMethod.Post]["/register"] = request => new UsersController().Register(request);
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/login"] = request => new UsersController().Login(request);
+            serverRoutingTable.Routes[HttpRequestMethod.Post]["/login"] = request => new UsersController().DoLogin(request);
+            serverRoutingTable.Routes[HttpRequestMethod.Get]["/users/register"] = request => new UsersController().Register(request);
+            serverRoutingTable.Routes[HttpRequestMethod.Post]["/register"] = request => new UsersController().DoRegister(request);
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/logout"] = request => new UsersController().Logout(request);
 
             // AlbumController

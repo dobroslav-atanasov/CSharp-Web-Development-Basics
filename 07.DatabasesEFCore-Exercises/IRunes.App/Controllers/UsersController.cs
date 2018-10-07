@@ -20,73 +20,77 @@
             this.userCookieService = new UserCookieServer();
         }
 
-        public IHttpResponse Login()
-        {
-            return this.View();
-        }
-
         public IHttpResponse Login(IHttpRequest request)
         {
-            var username = request.FormData["username"].ToString();
-            var password = request.FormData["password"].ToString();
-
-            var hashPassword = this.hashService.Hash(password);
-
-            if (!this.userService.ContainsUser(username))
-            {
-                //return this.BadRequestError($"User {username} does not exist!");
-            }
-
-            var user = this.userService.GetUser(username, hashPassword);
-            if (user == null)
-            {
-                //return this.BadRequestError($"Invalid username or password!");
-            }
-
-            var response = new RedirectResult("/");
-            var cookieContent = this.userCookieService.GetUserCookie(username);
-            var cookie = new HttpCookie(".auth-irunes", cookieContent, 3);
-            response.AddCookie(cookie);
-
-            return response;
+            return this.View();
         }
 
-        public IHttpResponse Register()
+        public IHttpResponse DoLogin(IHttpRequest request)
         {
-            return this.View();
+
+            return null;
+
+            //var username = request.FormData["username"].ToString();
+            //var password = request.FormData["password"].ToString();
+
+            //var hashPassword = this.hashService.Hash(password);
+
+            //if (!this.userService.ContainsUser(username))
+            //{
+            //    //return this.BadRequestError($"User {username} does not exist!");
+            //}
+
+            //var user = this.userService.GetUser(username, hashPassword);
+            //if (user == null)
+            //{
+            //    //return this.BadRequestError($"Invalid username or password!");
+            //}
+
+            //var response = new RedirectResult("/");
+            //var cookieContent = this.userCookieService.GetUserCookie(username);
+            //var cookie = new HttpCookie(".auth-irunes", cookieContent, 3);
+            //response.AddCookie(cookie);
+
+            //return response;
         }
 
         public IHttpResponse Register(IHttpRequest request)
         {
-            var username = request.FormData["username"].ToString();
-            var password = request.FormData["password"].ToString();
-            var confirmPassword = request.FormData["confirmPassword"].ToString();
-            var email = request.FormData["email"].ToString();
+            return this.View();
+        }
 
-            if (username.Length < 4 || password.Length < 4)
-            {
-                //return this.BadRequestError("Invalid user data!");
-            }
+        public IHttpResponse DoRegister(IHttpRequest request)
+        {
+            return null;
+            //var username = request.FormData["username"].ToString();
+            //var password = request.FormData["password"].ToString();
+            //var confirmPassword = request.FormData["confirmPassword"].ToString();
+            //var email = request.FormData["email"].ToString();
 
-            if (password != confirmPassword)
-            {
-                //return this.BadRequestError("Passwords are different!");
-            }
+            //if (username.Length < 4 || password.Length < 4)
+            //{
+            //    //return this.BadRequestError("Invalid user data!");
+            //}
 
-            if (this.userService.ContainsUser(username))
-            {
-                //return this.BadRequestError($"User {username} already exists!");
-            }
+            //if (password != confirmPassword)
+            //{
+            //    //return this.BadRequestError("Passwords are different!");
+            //}
 
-            var hashedPassword = this.hashService.Hash(password);
+            //if (this.userService.ContainsUser(username))
+            //{
+            //    //return this.BadRequestError($"User {username} already exists!");
+            //}
 
-            this.userService.AddUser(username, hashedPassword, email);
-            var response = new RedirectResult("/");
-            var cookieContent = this.userCookieService.GetUserCookie(username);
-            var cookie = new HttpCookie(".auth-irunes",cookieContent, 3);
-            response.AddCookie(cookie);
+            //var hashedPassword = this.hashService.Hash(password);
 
-            return response;
+            //this.userService.AddUser(username, hashedPassword, email);
+            //var response = new RedirectResult("/");
+            //var cookieContent = this.userCookieService.GetUserCookie(username);
+            //var cookie = new HttpCookie(".auth-irunes",cookieContent, 3);
+            //response.AddCookie(cookie);
+
+            //return response;
         }
 
         public IHttpResponse Logout(IHttpRequest request)
