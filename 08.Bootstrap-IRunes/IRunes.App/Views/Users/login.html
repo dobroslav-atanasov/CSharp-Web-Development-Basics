@@ -1,4 +1,95 @@
-﻿<!DOCTYPE html>
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/"><i class="fas fa-music"></i>  IRunes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fas fa-home"></i>  Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/login"><i class="fas fa-user-check"></i>  Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/register"><i class="fas fa-user-plus"></i>  Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<hr style="height: 2px" />
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="text-primary">Login</h1>
+    </div>
+    <hr style=" height: 2px" />
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <form method="post" action="/users/login">
+                <div class="form-group">
+                    <label for="usernameOrEmail">Username or Email</label>
+                    <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" aria-describedby="usernameOrEmail" placeholder="Username or Email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-warning btn-lg">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2">
+            <h1 class="text-primary">Login</h1>
+        </div>
+    </div>
+</div>
+<hr class="text-primary" style="height: 2px" />
+<div class="container">
+    <div class="row align-content-center">
+        <div class="col col-lg-8">
+            <form method="post" action="/users/login">
+                <div class="form-group">
+                    <label for="usernameOrEmail">Username or Email</label>
+                    <input type="text" class="form-control" id="usernameOrEmail" name="usernameOrEmail" aria-describedby="usernameOrEmail" placeholder="Username or Email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-warning">Login</button>
+            </form>
+        </div>
+    </div>
+</div>-->
+
+
+
+
+<!--<h1>Login</h1>
+<div style="display: {{showError}}; color: red">
+    {{error}}
+</div>
+<form method="post" action="/users/login">
+    <div>
+        Username/Email:
+        <input type="text" name="usernameOrEmail" placeholder="Username or Email" />
+    </div>
+    <div>
+        Password:
+        <input type="password" name="password" placeholder="Password" />
+    </div>
+    <div>
+        <input type="submit" value="Login" />
+    </div>
+</form>-->
+<!--<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
@@ -34,4 +125,4 @@
     <hr />
     <div>Copy Right &copy; Classics Design Studio. All right reserved.</div>
 </body>
-</html>
+</html>-->

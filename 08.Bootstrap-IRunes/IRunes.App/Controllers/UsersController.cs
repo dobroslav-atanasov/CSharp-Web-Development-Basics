@@ -24,8 +24,9 @@
 
         public IHttpResponse Login()
         {
-            this.SetViewBagData();
-            return this.View();
+            return this.NewView("login", this.ViewBag);
+            //this.SetViewBagData();
+            //return this.View();
         }
         
         public IHttpResponse Login(IHttpRequest request)
@@ -50,8 +51,9 @@
 
         public IHttpResponse Register()
         {
-            this.SetViewBagData();
-            return this.View();
+            return this.NewView("register", this.ViewBag);
+            //this.SetViewBagData();
+            //return this.View();
         }
 
         public IHttpResponse Register(IHttpRequest request)
