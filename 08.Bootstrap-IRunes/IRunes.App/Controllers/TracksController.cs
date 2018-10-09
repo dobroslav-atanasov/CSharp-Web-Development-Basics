@@ -52,8 +52,8 @@
 
             if (!request.QueryData.ContainsKey("albumId"))
             {
-                this.ApplyError(AlbumDoesNotExist);
-                return new RedirectResult("/albums/all");
+                this.ViewBag["Error"] = AlbumDoesNotExist;
+                return this.NewView("error", this.ViewBag);
             }
 
             var albumId = int.Parse(request.QueryData["albumId"].ToString());
@@ -61,8 +61,8 @@
 
             if (album == null)
             {
-                this.ApplyError(AlbumDoesNotExist);
-                return new BadRequestResult(HttpResponseStatusCode.NotFound);
+                this.ViewBag["Error"] = AlbumDoesNotExist;
+                return this.NewView("error", this.ViewBag);
             }
 
             var name = request.FormData["name"].ToString().UrlDecode();
@@ -72,14 +72,14 @@
 
             if (name.Length <= 2 || link.Length <= 1 || price <= 0)
             {
-                this.ApplyError(InvalidData);
-                return this.View();
+                this.ViewBag["Error"] = InvalidData;
+                return this.NewView("error", this.ViewBag);
             }
 
             if (this.trackService.ContainsTrack(name))
             {
-                this.ApplyError(TrackAlreadyExists);
-                return this.View();
+                this.ViewBag["Error"] = TrackAlreadyExists;
+                return this.NewView("error", this.ViewBag);
             }
 
             this.trackService.AddTrack(name, link, price, albumId);

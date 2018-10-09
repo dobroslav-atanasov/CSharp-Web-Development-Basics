@@ -28,25 +28,9 @@
 
         public Dictionary<string, string> ViewBag { get; private set; }
 
-        // FOR DELETE
-        protected IHttpResponse View([CallerMemberName] string viewName = "")
+        protected IHttpResponse NewView(string viewName, Dictionary<string, string> viewBag)
         {
-            var path = $"../../../Views/{this.GetController()}/{viewName}.html";
-
-            if (!File.Exists(path))
-            {
-                return new BadRequestResult(HttpResponseStatusCode.NotFound);
-            }
-
-            var content = File.ReadAllText(path);
-            foreach (var key in this.ViewBag.Keys)
-            {
-                if (content.Contains($"{{{{{key}}}}}"))
-                {
-                    content = content.Replace($"{{{{{key}}}}}", this.ViewBag[key]);
-                }
-            }
-
+            var content = this.GetViewContent(viewName, viewBag);
             return new HtmlResult(content, HttpResponseStatusCode.Ok);
         }
 
@@ -62,30 +46,10 @@
             return request.Session.ContainsParameter("username");
         }
 
-        // FOR DELETE
-        protected void ApplyError(string errorMessage)
-        {
-            this.ViewBag["showError"] = "block";
-            this.ViewBag["error"] = errorMessage;
-        }
-
-        // FOR DELETE
-        protected void SetViewBagData()
-        {
-            this.ViewBag["showError"] = "none";
-        }
-
         private string GetController()
         {
             var controllerName = this.GetType().Name.Replace(ControllerSuffixName, string.Empty);
             return controllerName;
-        }
-
-        //------------------------------------------------------------------------------------------
-        protected IHttpResponse NewView(string viewName, Dictionary<string, string> viewBag)
-        {
-            var content = this.GetViewContent(viewName, viewBag);
-            return new HtmlResult(content, HttpResponseStatusCode.Ok);
         }
 
         private string GetViewContent(string viewName, Dictionary<string, string> viewBag)

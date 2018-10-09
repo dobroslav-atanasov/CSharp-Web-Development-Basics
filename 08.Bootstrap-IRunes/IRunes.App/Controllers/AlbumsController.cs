@@ -88,8 +88,8 @@
 
             if (!request.QueryData.ContainsKey("id"))
             {
-                this.ApplyError(AlbumDoesNotExist);
-                return new RedirectResult("/albums/all");
+                this.ViewBag["Error"] = AlbumDoesNotExist;
+                return this.NewView("error", this.ViewBag);
             }
 
             var albumId = int.Parse(request.QueryData["id"].ToString());
