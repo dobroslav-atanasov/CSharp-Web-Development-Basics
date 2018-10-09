@@ -52,25 +52,6 @@
             }
 
             return this.NewView("all", this.ViewBag);
-
-            //var allAlbums = this.albumsService.GetAllAlbums();
-            //var sb = new StringBuilder();
-            //if (allAlbums.Any())
-            //{
-            //    foreach (var album in allAlbums)
-            //    {
-            //        var albumText = $@"<div><a href=/albums/details?id={album.Id}>{album.Name}</a></div><br/>";
-            //        sb.AppendLine(albumText);
-            //    }
-
-            //    this.ViewBag["allAlbums"] = sb.ToString();
-            //}
-            //else
-            //{
-            //    this.ViewBag["allAlbums"] = NoAlbums;
-            //}
-
-            //return this.View();
         }
 
         public IHttpResponse Create(IHttpRequest request)
@@ -80,8 +61,7 @@
                 return new RedirectResult("/users/login");
             }
 
-            this.SetViewBagData();
-            return this.View();
+            return this.NewView("create", this.ViewBag);
         }
 
         public IHttpResponse DoCreate(IHttpRequest request)
@@ -91,8 +71,8 @@
 
             if (this.albumsService.ContainsAlbum(name))
             {
-                this.ApplyError(AlbumExists);
-                return this.View();
+                this.ViewBag["Error"] = AlbumExists;
+                return this.NewView("error", this.ViewBag);
             }
 
             this.albumsService.AddAlbum(name, cover);
