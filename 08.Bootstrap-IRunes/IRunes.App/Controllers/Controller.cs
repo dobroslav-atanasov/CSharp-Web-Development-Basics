@@ -28,6 +28,7 @@
 
         public Dictionary<string, string> ViewBag { get; private set; }
 
+        // FOR DELETE
         protected IHttpResponse View([CallerMemberName] string viewName = "")
         {
             var path = $"../../../Views/{this.GetController()}/{viewName}.html";
@@ -61,12 +62,14 @@
             return request.Session.ContainsParameter("username");
         }
 
+        // FOR DELETE
         protected void ApplyError(string errorMessage)
         {
             this.ViewBag["showError"] = "block";
             this.ViewBag["error"] = errorMessage;
         }
 
+        // FOR DELETE
         protected void SetViewBagData()
         {
             this.ViewBag["showError"] = "none";

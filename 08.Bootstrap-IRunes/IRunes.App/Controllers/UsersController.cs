@@ -39,14 +39,15 @@
 
             if (user == null)
             {
-                this.ApplyError(InvalidUsernameOrPassword);
-                return this.View();
+                this.ViewBag["Error"] = InvalidUsernameOrPassword;
+                return this.NewView("error", this.ViewBag);
+                //this.ApplyError(InvalidUsernameOrPassword);
+                //return this.View();
             }
 
             var response = new RedirectResult("/");
             this.SignInUser(usernameOrEmail, request, response);
-
-            return new RedirectResult("/");
+            return response;
         }
 
         public IHttpResponse Register()
@@ -65,14 +66,18 @@
 
             if (username.Length < 4 || password.Length < 4 || password != confirmPassword)
             {
-                this.ApplyError(InvalidUsernameOrPasswordLength);
-                return this.View();
+                this.ViewBag["Error"] = InvalidUsernameOrPasswordLength;
+                return this.NewView("error", this.ViewBag);
+                //this.ApplyError(InvalidUsernameOrPasswordLength);
+                //return this.View();
             }
 
             if (this.userService.ContainsUser(username))
             {
-                this.ApplyError(UsernameAlreadyExists);
-                return this.View();
+                this.ViewBag["Error"] = UsernameAlreadyExists;
+                return this.NewView("error", this.ViewBag);
+                //this.ApplyError(UsernameAlreadyExists);
+                //return this.View();
             }
 
             var hashPassword = this.hashService.Hash(password);

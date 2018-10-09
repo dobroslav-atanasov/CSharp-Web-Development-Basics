@@ -21,24 +21,8 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <h1 class="text-primary">Login</h1>
-    </div>
-    <hr style="height: 2px"/>
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <form method="post" action="/users/login">
-                <div class="form-group">
-                    <label for="usernameOrEmail">Username or Email</label>
-                    <input type="text" required class="form-control" id="usernameOrEmail" name="usernameOrEmail" aria-describedby="usernameOrEmail" placeholder="Username or Email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
-                </div>
-                <div class="row justify-content-center">
-                    <button type="submit" class="btn btn-warning btn-lg">Login</button>
-                </div>
-            </form>
+        <div class="alert alert-danger align-content-center" role="alert">
+            @Model.Error
         </div>
     </div>
 </div>
