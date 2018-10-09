@@ -9,9 +9,9 @@
 
     public class UsersController : Controller
     {
-        private const string InvalidUsernameOrPassword = "<h2>Invalid username, email or password!</h2>";
-        private const string InvalidUsernameOrPasswordLength = "<h2>Invalid user data!</h2>";
-        private const string UsernameAlreadyExists = "<h2>Username already exists!</h2>";
+        private const string InvalidUsernameOrPassword = "Invalid username, email or password!";
+        private const string InvalidUsernameOrPasswordLength = "Invalid user data!";
+        private const string UsernameAlreadyExists = "Username already exists!";
 
         private readonly IUserService userService;
         private readonly IHashService hashService;
@@ -25,8 +25,6 @@
         public IHttpResponse Login()
         {
             return this.NewView("login", this.ViewBag);
-            //this.SetViewBagData();
-            //return this.View();
         }
         
         public IHttpResponse Login(IHttpRequest request)
@@ -41,8 +39,6 @@
             {
                 this.ViewBag["Error"] = InvalidUsernameOrPassword;
                 return this.NewView("error", this.ViewBag);
-                //this.ApplyError(InvalidUsernameOrPassword);
-                //return this.View();
             }
 
             var response = new RedirectResult("/");
@@ -53,8 +49,6 @@
         public IHttpResponse Register()
         {
             return this.NewView("register", this.ViewBag);
-            //this.SetViewBagData();
-            //return this.View();
         }
 
         public IHttpResponse Register(IHttpRequest request)
@@ -68,16 +62,12 @@
             {
                 this.ViewBag["Error"] = InvalidUsernameOrPasswordLength;
                 return this.NewView("error", this.ViewBag);
-                //this.ApplyError(InvalidUsernameOrPasswordLength);
-                //return this.View();
             }
 
             if (this.userService.ContainsUser(username))
             {
                 this.ViewBag["Error"] = UsernameAlreadyExists;
                 return this.NewView("error", this.ViewBag);
-                //this.ApplyError(UsernameAlreadyExists);
-                //return this.View();
             }
 
             var hashPassword = this.hashService.Hash(password);
