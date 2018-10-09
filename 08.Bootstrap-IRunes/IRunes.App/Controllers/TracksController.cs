@@ -37,9 +37,14 @@
                 return new RedirectResult("/albums/all");
             }
 
-            this.ViewBag["albumId"] = request.QueryData["albumId"].ToString();
-            this.SetViewBagData();
-            return this.View();
+            var albumId = request.QueryData["albumId"].ToString();
+            this.ViewBag["StartForm"] = $"<form method=\"post\" action=\"/tracks/create?albumId={albumId}\">";
+            this.ViewBag["EndForm"] = "</form>";
+
+            return this.NewView("create", this.ViewBag);
+            //this.ViewBag["albumId"] = request.QueryData["albumId"].ToString();
+            //this.SetViewBagData();
+            //return this.View();
         }
 
         public IHttpResponse DoCreate(IHttpRequest request)
