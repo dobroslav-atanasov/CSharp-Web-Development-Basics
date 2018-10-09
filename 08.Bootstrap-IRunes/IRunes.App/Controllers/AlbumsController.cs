@@ -2,11 +2,9 @@
 {
     using System.Linq;
     using System.Text;
-    using System.Web;
     using Extensions;
     using Services;
     using Services.Contracts;
-    using SIS.HTTP.Enums;
     using SIS.HTTP.Requests.Contracts;
     using SIS.HTTP.Responses.Contracts;
     using SIS.WebServer.Results;
@@ -99,14 +97,14 @@
 
             if (album == null)
             {
-                this.ApplyError(AlbumDoesNotExist);
-                return new BadRequestResult(HttpResponseStatusCode.NotFound);
+                this.ViewBag["Error"] = AlbumDoesNotExist;
+                return this.NewView("error", this.ViewBag);
             }
 
-            this.ViewBag["cover"] = album.Cover;
-            this.ViewBag["name"] = album.Name;
-            this.ViewBag["price"] = $"${this.albumsService.GetTotalPrice(albumId):F2}";
-            this.ViewBag["albumId"] = albumId.ToString();
+            this.ViewBag["Cover"] = $"<img src=\"{album.Cover}\" alt=\"{album.Name}\" class=\"img-fluid\">";
+            this.ViewBag["Name"] = album.Name;
+            this.ViewBag["Price"] = $"${this.albumsService.GetTotalPrice(albumId):F2}";
+            //this.ViewBag["albumId"] = albumId.ToString();
 
             var allTracks = this.trackService.GetAllTracks(albumId);
             var sb = new StringBuilder();
@@ -120,14 +118,14 @@
                 }
                 sb.AppendLine("</ol>");
 
-                this.ViewBag["allTracks"] = sb.ToString();
+                this.ViewBag["AllTracks"] = sb.ToString();
             }
             else
             {
-                this.ViewBag["allTracks"] = NoTracks;
+                this.ViewBag["AllTracks"] = NoTracks;
             }
 
-            return this.View();
+            return this.NewView("details", this.ViewBag);
         }
     }
 }
