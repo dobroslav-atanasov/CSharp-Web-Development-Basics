@@ -9,46 +9,21 @@
                 <a class="nav-link" href="/"><i class="fas fa-home"></i>  Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users/login"><i class="fas fa-user-check"></i>  Login</a>
+                <a class="nav-link" href="/albums/all"><i class="fas fa-drum-steelpan"></i>  Albums</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/users/register"><i class="fas fa-user-plus"></i>  Register</a>
+                <a class="nav-link" href="/users/logout"><i class="fas fa-user-times"></i>  Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 <hr style="height: 2px" />
-
 <h1 class="text-dark">Albums</h1>
 <hr style="height: 2px" />
-
-
-
-<!--<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>All Albums</title>
-</head>
-<body>
-    <h1>IRunes</h1>
-    <div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/albums/all">Albums</a></li>
-            <li><a href="/users/logout">Logout</a></li>
-        </ul>
-    </div>
-    <hr />
-    <h1>Albums</h1>
-    <hr />
-    <div>
-        <a href="/albums/create">Create Album</a>
-    </div>
-    <hr />
-    {{allAlbums}}
-    <hr />
-    <div>Copy Right &copy; Classics Design Studio. All right reserved.</div>
-</body>
-</html>-->
+<div>
+    <a class="btn btn-warning btn-lg" href="/albums/create" role="button">Create Album</a>
+</div>
+<hr style="height: 2px" />
+<div>
+    @Model.AllAlbums
+</div>

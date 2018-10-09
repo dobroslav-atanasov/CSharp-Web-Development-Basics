@@ -13,7 +13,7 @@
 
     public class AlbumsController : Controller
     {
-        private const string AlbumExists = "<h1>Album already exists!</h1>";
+        private const string AlbumExists = "Album already exists!";
         private const string NoAlbums = "There are currently no albums.";
         private const string AlbumDoesNotExist = "Album does not exist!";
         private const string NoTracks = "There are currently no tracks.";
@@ -40,18 +40,37 @@
             {
                 foreach (var album in allAlbums)
                 {
-                    var albumText = $@"<div><a href=/albums/details?id={album.Id}>{album.Name}</a></div><br/>";
+                    var albumText = $@"<div><h4><a href=/albums/details?id={album.Id}>{album.Name}</a></h4></div><br/>";
                     sb.AppendLine(albumText);
                 }
 
-                this.ViewBag["allAlbums"] = sb.ToString();
+                this.ViewBag["AllAlbums"] = sb.ToString();
             }
             else
             {
-                this.ViewBag["allAlbums"] = NoAlbums;
+                this.ViewBag["AllAlbums"] = NoAlbums;
             }
 
-            return this.View();
+            return this.NewView("all", this.ViewBag);
+
+            //var allAlbums = this.albumsService.GetAllAlbums();
+            //var sb = new StringBuilder();
+            //if (allAlbums.Any())
+            //{
+            //    foreach (var album in allAlbums)
+            //    {
+            //        var albumText = $@"<div><a href=/albums/details?id={album.Id}>{album.Name}</a></div><br/>";
+            //        sb.AppendLine(albumText);
+            //    }
+
+            //    this.ViewBag["allAlbums"] = sb.ToString();
+            //}
+            //else
+            //{
+            //    this.ViewBag["allAlbums"] = NoAlbums;
+            //}
+
+            //return this.View();
         }
 
         public IHttpResponse Create(IHttpRequest request)
