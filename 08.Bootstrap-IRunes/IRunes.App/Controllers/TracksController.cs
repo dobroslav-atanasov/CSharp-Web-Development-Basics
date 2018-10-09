@@ -42,9 +42,6 @@
             this.ViewBag["EndForm"] = "</form>";
 
             return this.NewView("create", this.ViewBag);
-            //this.ViewBag["albumId"] = request.QueryData["albumId"].ToString();
-            //this.SetViewBagData();
-            //return this.View();
         }
 
         public IHttpResponse DoCreate(IHttpRequest request)
@@ -101,8 +98,10 @@
 
             if (!request.QueryData.ContainsKey("albumId") || !request.QueryData.ContainsKey("trackId"))
             {
-                this.ApplyError(AlbumDoesNotExist);
-                return new RedirectResult("/albums/all");
+                this.ViewBag["Error"] = AlbumDoesNotExist;
+                return this.NewView("error", this.ViewBag);
+                //this.ApplyError(AlbumDoesNotExist);
+                //return new RedirectResult("/albums/all");
             }
 
             var albumId = int.Parse(request.QueryData["albumId"].ToString());
@@ -112,8 +111,10 @@
 
             if (track == null)
             {
-                this.ApplyError(TrackDoesNotExist);
-                return new BadRequestResult(HttpResponseStatusCode.NotFound);
+                this.ViewBag["Error"] = TrackDoesNotExist;
+                return this.NewView("error", this.ViewBag);
+                //this.ApplyError(TrackDoesNotExist);
+                //return new BadRequestResult(HttpResponseStatusCode.NotFound);
             }
 
             this.ViewBag["name"] = track.Name;
