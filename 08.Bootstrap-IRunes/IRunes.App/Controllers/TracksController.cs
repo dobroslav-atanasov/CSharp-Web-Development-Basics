@@ -1,6 +1,5 @@
 ﻿namespace IRunes.App.Controllers
 {
-    using System.Web;
     using Extensions;
     using Services;
     using Services.Contracts;
@@ -84,8 +83,8 @@
             }
 
             this.trackService.AddTrack(name, link, price, albumId);
-
             var response = new RedirectResult($"/albums/details?id={albumId}");
+
             return response;
         }
 
@@ -100,8 +99,6 @@
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
                 return this.NewView("error", this.ViewBag);
-                //this.ApplyError(AlbumDoesNotExist);
-                //return new RedirectResult("/albums/all");
             }
 
             var albumId = int.Parse(request.QueryData["albumId"].ToString());
@@ -113,16 +110,14 @@
             {
                 this.ViewBag["Error"] = TrackDoesNotExist;
                 return this.NewView("error", this.ViewBag);
-                //this.ApplyError(TrackDoesNotExist);
-                //return new BadRequestResult(HttpResponseStatusCode.NotFound);
             }
 
-            this.ViewBag["name"] = track.Name;
-            this.ViewBag["price"] = $"${track.Price}";
-            this.ViewBag["albumId"] = albumId.ToString();
-            this.ViewBag["link"] = track.Link;
+            this.ViewBag["Name"] = track.Name;
+            this.ViewBag["Price"] = $"${track.Price:F2}";
+            this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning\" href=\"/albums/details?id={albumId}\" role=\"button\">Back To Album</a>";
+            this.ViewBag["Video"] = $"<iframe class=\"embed-responsive-item\" src=\"{track.Link}\" allowfullscreen></iframe>";
 
-            return this.View();
+            return this.NewView("details", this.ViewBag);
         }
     }
 }

@@ -1,31 +1,37 @@
-﻿<!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Track Details</title>
-</head>
-<body>
-    <h1>IRunes</h1>
-    <div>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/albums/all">Albums</a></li>
-            <li><a href="/users/logout">Logout</a></li>
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/"><i class="fas fa-music"></i>  IRunes</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/"><i class="fas fa-home"></i>  Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/albums/all"><i class="fas fa-drum-steelpan"></i>  Albums</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/users/logout"><i class="fas fa-user-times"></i>  Logout</a>
+            </li>
         </ul>
     </div>
-    <hr />
-    <iframe width="300" src="{{link}}"></iframe>
-    <!--<video controls="true">
-        <source src="{{link}}" type="video/mp4" />
-    </video>-->
-    <h3>Name: {{name}}</h3>
-    <h3>Price: {{price}}</h3>
-    <hr />
-    <div>
-        <a href="/albums/details?id={{albumId}}">Back To Album</a>
+</nav>
+<hr style="height: 2px" />
+
+<div class="container">
+    <div class="row justify-content-center">
+        <h4 class="text-primary">Track Name: @Model.Name</h4>
     </div>
-    <hr />
-    <div>Copy Right &copy; Classics Design Studio. All right reserved.</div>
-</body>
-</html>
+    <div class="row justify-content-center">
+        <h4 class="text-primary">Track Price: @Model.Price</h4>
+    </div>
+    <hr style="height: 2px" />
+    <div class="embed-responsive embed-responsive-16by9">
+        @Model.Video
+    </div>
+    <hr style="height: 2px" />
+    <div class="row justify-content-center">
+        @Model.BackTo
+    </div>
+</div>
