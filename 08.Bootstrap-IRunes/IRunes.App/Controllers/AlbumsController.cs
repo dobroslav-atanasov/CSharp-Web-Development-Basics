@@ -104,7 +104,7 @@
             this.ViewBag["Cover"] = $"<img src=\"{album.Cover}\" alt=\"{album.Name}\" class=\"img-fluid\">";
             this.ViewBag["Name"] = album.Name;
             this.ViewBag["Price"] = $"${this.albumsService.GetTotalPrice(albumId):F2}";
-            //this.ViewBag["albumId"] = albumId.ToString();
+            this.ViewBag["CreateTrack"] = $"<a class=\"btn btn-warning\" href=\"/tracks/create?albumId={albumId}\" role=\"button\">Create Track</a>";
 
             var allTracks = this.trackService.GetAllTracks(albumId);
             var sb = new StringBuilder();
