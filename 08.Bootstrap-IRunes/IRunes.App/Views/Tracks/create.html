@@ -23,15 +23,14 @@
     <div class="row justify-content-center">
         <h1 class="text-primary">Create Track</h1>
     </div>
-    <hr style="height: 2px" />
     <div class="row justify-content-center">
         <div class="col-8">
+            <hr style="height: 2px" />
             @Model.StartForm
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" required class="form-control" id="name" name="name" aria-describedby="name" placeholder="Name">
             </div>
-
             <div class="row">
                 <div class="col form-group">
                     <label for="link">Link</label>
@@ -42,8 +41,7 @@
                     <input type="number" min="0.01" step="0.01" required class="form-control" id="price" name="price" placeholder="Price">
                 </div>
             </div>
-
-            <hr style="height: 2px" />
+            <hr style="height: 2px"/>
             <div class="row justify-content-around">
                 <div class="col-4">
                     <button type="submit" class="btn btn-warning btn-lg">Create</button>
