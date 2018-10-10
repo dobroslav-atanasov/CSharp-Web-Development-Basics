@@ -9,5 +9,7 @@
         public const string BadRequestMessage = "The request was malformed or contains unsupported elements.";
 
         public const string InternalServerErrorMessage = "The Server has encountered an error.";
+
+        public static string[] Extensions = new string[] { ".js", ".css" };
     }
 }

@@ -53,7 +53,7 @@
             if (!request.QueryData.ContainsKey("albumId"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/albums/all\" role=\"button\">Back To Albums</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -63,7 +63,7 @@
             if (album == null)
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create?albumId={albumId}\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -75,14 +75,14 @@
             if (name.Length <= 2 || link.Length <= 1 || price <= 0)
             {
                 this.ViewBag["Error"] = InvalidData;
-                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create?albumId={albumId}\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
             if (this.trackService.ContainsTrack(name))
             {
                 this.ViewBag["Error"] = TrackAlreadyExists;
-                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create?albumId={albumId}\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -121,7 +121,7 @@
             this.ViewBag["Name"] = track.Name;
             this.ViewBag["Price"] = $"${track.Price:F2}";
             this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning\" href=\"/albums/details?id={albumId}\" role=\"button\">Back To Album</a>";
-            this.ViewBag["Video"] = $"<iframe class=\"embed-responsive-item\" src=\"{track.Link}\" allowfullscreen></iframe>";
+            this.ViewBag["Video"] = $"<iframe class=\"embed-responsive-item\" src=\"{track.Link}\"></iframe>";
 
             return this.View("details", this.ViewBag);
         }
