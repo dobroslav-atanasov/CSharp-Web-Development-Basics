@@ -38,6 +38,7 @@
             if (user == null)
             {
                 this.ViewBag["Error"] = InvalidUsernameOrPassword;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/users/login\" role=\"button\">Back To Login</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -61,12 +62,14 @@
             if (username.Length < 4 || password.Length < 4 || password != confirmPassword)
             {
                 this.ViewBag["Error"] = InvalidUsernameOrPasswordLength;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/users/register\" role=\"button\">Back To Register</a>";
                 return this.View("error", this.ViewBag);
             }
 
             if (this.userService.ContainsUser(username))
             {
                 this.ViewBag["Error"] = UsernameAlreadyExists;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/users/register\" role=\"button\">Back To Register</a>";
                 return this.View("error", this.ViewBag);
             }
 
