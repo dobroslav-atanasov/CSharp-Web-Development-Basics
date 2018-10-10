@@ -81,7 +81,6 @@
 
         private IHttpResponse HandleRequestResponse(string httpRequestPath)
         {
-            var startExtensionIndex = httpRequestPath.LastIndexOf(".");
             var startNameResourceIndex = httpRequestPath.LastIndexOf("/");
             var requestPathExtension = httpRequestPath.Substring(httpRequestPath.LastIndexOf("."));
 
