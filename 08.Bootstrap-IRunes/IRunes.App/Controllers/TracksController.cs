@@ -53,6 +53,7 @@
             if (!request.QueryData.ContainsKey("albumId"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -62,6 +63,7 @@
             if (album == null)
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -73,12 +75,14 @@
             if (name.Length <= 2 || link.Length <= 1 || price <= 0)
             {
                 this.ViewBag["Error"] = InvalidData;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
             if (this.trackService.ContainsTrack(name))
             {
                 this.ViewBag["Error"] = TrackAlreadyExists;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/tracks/create\" role=\"button\">Back To Create Track</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -98,6 +102,7 @@
             if (!request.QueryData.ContainsKey("albumId") || !request.QueryData.ContainsKey("trackId"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/albums/all\" role=\"button\">Back To Albums</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -109,6 +114,7 @@
             if (track == null)
             {
                 this.ViewBag["Error"] = TrackDoesNotExist;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/albums/details?id={albumId}\" role=\"button\">Back To Album Details</a>";
                 return this.View("error", this.ViewBag);
             }
 
