@@ -70,6 +70,7 @@
             if (this.albumsService.ContainsAlbum(name))
             {
                 this.ViewBag["Error"] = AlbumExists;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/albums/create\" role=\"button\">Back To Create Album</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -89,6 +90,7 @@
             if (!request.QueryData.ContainsKey("id"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/albums/all\" role=\"button\">Back To Albums</a>";
                 return this.View("error", this.ViewBag);
             }
 
@@ -98,6 +100,7 @@
             if (album == null)
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
+                this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning btn-lg\" href=\"/albums/all\" role=\"button\">Back To Albums</a>";
                 return this.View("error", this.ViewBag);
             }
 
