@@ -40,7 +40,7 @@
             this.ViewBag["StartForm"] = $"<form method=\"post\" action=\"/tracks/create?albumId={albumId}\">";
             this.ViewBag["EndForm"] = "</form>";
 
-            return this.NewView("create", this.ViewBag);
+            return this.View("create", this.ViewBag);
         }
 
         public IHttpResponse DoCreate(IHttpRequest request)
@@ -53,7 +53,7 @@
             if (!request.QueryData.ContainsKey("albumId"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             var albumId = int.Parse(request.QueryData["albumId"].ToString());
@@ -62,7 +62,7 @@
             if (album == null)
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             var name = request.FormData["name"].ToString().UrlDecode();
@@ -73,13 +73,13 @@
             if (name.Length <= 2 || link.Length <= 1 || price <= 0)
             {
                 this.ViewBag["Error"] = InvalidData;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             if (this.trackService.ContainsTrack(name))
             {
                 this.ViewBag["Error"] = TrackAlreadyExists;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             this.trackService.AddTrack(name, link, price, albumId);
@@ -98,7 +98,7 @@
             if (!request.QueryData.ContainsKey("albumId") || !request.QueryData.ContainsKey("trackId"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             var albumId = int.Parse(request.QueryData["albumId"].ToString());
@@ -109,7 +109,7 @@
             if (track == null)
             {
                 this.ViewBag["Error"] = TrackDoesNotExist;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             this.ViewBag["Name"] = track.Name;
@@ -117,7 +117,7 @@
             this.ViewBag["BackTo"] = $"<a class=\"btn btn-warning\" href=\"/albums/details?id={albumId}\" role=\"button\">Back To Album</a>";
             this.ViewBag["Video"] = $"<iframe class=\"embed-responsive-item\" src=\"{track.Link}\" allowfullscreen></iframe>";
 
-            return this.NewView("details", this.ViewBag);
+            return this.View("details", this.ViewBag);
         }
     }
 }

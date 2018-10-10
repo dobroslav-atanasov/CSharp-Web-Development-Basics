@@ -49,7 +49,7 @@
                 this.ViewBag["AllAlbums"] = NoAlbums;
             }
 
-            return this.NewView("all", this.ViewBag);
+            return this.View("all", this.ViewBag);
         }
 
         public IHttpResponse Create(IHttpRequest request)
@@ -59,7 +59,7 @@
                 return new RedirectResult("/users/login");
             }
 
-            return this.NewView("create", this.ViewBag);
+            return this.View("create", this.ViewBag);
         }
 
         public IHttpResponse DoCreate(IHttpRequest request)
@@ -70,7 +70,7 @@
             if (this.albumsService.ContainsAlbum(name))
             {
                 this.ViewBag["Error"] = AlbumExists;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             this.albumsService.AddAlbum(name, cover);
@@ -89,7 +89,7 @@
             if (!request.QueryData.ContainsKey("id"))
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             var albumId = int.Parse(request.QueryData["id"].ToString());
@@ -98,7 +98,7 @@
             if (album == null)
             {
                 this.ViewBag["Error"] = AlbumDoesNotExist;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             this.ViewBag["Cover"] = $"<img src=\"{album.Cover}\" alt=\"{album.Name}\" class=\"img-fluid\">";
@@ -125,7 +125,7 @@
                 this.ViewBag["AllTracks"] = NoTracks;
             }
 
-            return this.NewView("details", this.ViewBag);
+            return this.View("details", this.ViewBag);
         }
     }
 }

@@ -28,7 +28,7 @@
 
         public Dictionary<string, string> ViewBag { get; private set; }
 
-        protected IHttpResponse NewView(string viewName, Dictionary<string, string> viewBag)
+        protected IHttpResponse View(string viewName, Dictionary<string, string> viewBag)
         {
             var content = this.GetViewContent(viewName, viewBag);
             return new HtmlResult(content, HttpResponseStatusCode.Ok);

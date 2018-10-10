@@ -24,7 +24,7 @@
 
         public IHttpResponse Login()
         {
-            return this.NewView("login", this.ViewBag);
+            return this.View("login", this.ViewBag);
         }
         
         public IHttpResponse Login(IHttpRequest request)
@@ -38,7 +38,7 @@
             if (user == null)
             {
                 this.ViewBag["Error"] = InvalidUsernameOrPassword;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             var response = new RedirectResult("/");
@@ -48,7 +48,7 @@
 
         public IHttpResponse Register()
         {
-            return this.NewView("register", this.ViewBag);
+            return this.View("register", this.ViewBag);
         }
 
         public IHttpResponse Register(IHttpRequest request)
@@ -61,13 +61,13 @@
             if (username.Length < 4 || password.Length < 4 || password != confirmPassword)
             {
                 this.ViewBag["Error"] = InvalidUsernameOrPasswordLength;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             if (this.userService.ContainsUser(username))
             {
                 this.ViewBag["Error"] = UsernameAlreadyExists;
-                return this.NewView("error", this.ViewBag);
+                return this.View("error", this.ViewBag);
             }
 
             var hashPassword = this.hashService.Hash(password);
