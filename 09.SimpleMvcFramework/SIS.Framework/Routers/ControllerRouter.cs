@@ -49,9 +49,8 @@
         {
             if (controllerName != null)
             {
-
-                // TODO Mvc.Get.ControllerSuffix
-                var controllerTypeName = string.Format("{0}.{1}.{2}, {0}", MvcContext.Get.AssemblyName, MvcContext.Get.ControllersFolder, controllerName);
+                var controllerTypeName = string.Format("{0}.{1}.{2}{3}, {0}", 
+                    MvcContext.Get.AssemblyName, MvcContext.Get.ControllersFolder, controllerName, MvcContext.Get.ControllersSuffix);
 
                 var controllerType = Type.GetType(controllerTypeName);
                 var controller = (Controller)Activator.CreateInstance(controllerType);

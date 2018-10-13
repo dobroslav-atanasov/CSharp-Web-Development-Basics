@@ -34,8 +34,8 @@
             serverRoutingTable.Routes[HttpRequestMethod.Post]["/tracks/create"] = request => new TracksController().DoCreate(request);
             serverRoutingTable.Routes[HttpRequestMethod.Get]["/tracks/details"] = request => new TracksController().Details(request);
 
-            var server = new Server(8080, serverRoutingTable);
-            server.Run();
+            //var server = new Server(8080, serverRoutingTable);
+            //server.Run();
         }
     }
 }
