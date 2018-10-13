@@ -4,18 +4,45 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using ActionResults.Contracts;
     using Attributes.Methods;
     using Controllers;
+    using HTTP.Enums;
     using HTTP.Requests.Contracts;
     using HTTP.Responses;
     using HTTP.Responses.Contracts;
     using WebServer.Api;
+    using WebServer.Results;
 
     public class ControllerRouter : IHttpHandler
     {
         public IHttpResponse Handle(IHttpRequest request)
         {
-            throw new System.NotImplementedException();
+            string controllerName = null;
+            string actionName = null;
+            var requestMethod = request.RequestMethod.ToString();
+
+            if (request.Url == "/")
+            {
+                controllerName = "Home";
+                actionName = "Index";
+            }
+            else
+            {
+                var parts = request.Url.Split("/", StringSplitOptions.RemoveEmptyEntries);
+                controllerName = parts[0];
+                actionName = parts[1];
+            }
+
+            var controller = this.GetController(controllerName, request);
+            var action = this.GetMethod(requestMethod, controller, actionName);
+
+            if (controller == null || action == null)
+            {
+                return new HttpResponse(HttpResponseStatusCode.NotFound);
+            }
+
+            return this.PrepareResponse(controller, action);
         }
 
         private Controller GetController(string controllerName, IHttpRequest request)
@@ -80,7 +107,21 @@
 
         private HttpResponse PrepareResponse(Controller controller, MethodInfo action)
         {
-            return null;
+            var actionResult = (IActionResult)action.Invoke(controller, null);
+            var invocationResult = actionResult.Invoke();
+
+            if (actionResult is IViewable)
+            {
+                return new HtmlResult(invocationResult, HttpResponseStatusCode.Ok);
+            }
+            else if (actionResult is IRedirectable)
+            {
+                return new RedirectResult(invocationResult);
+            }
+            else
+            {
+                throw new InvalidOperationException("The view result is not supported!");
+            }
         }
     }
 }
