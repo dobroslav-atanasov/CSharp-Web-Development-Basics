@@ -49,6 +49,8 @@
         {
             if (controllerName != null)
             {
+
+                // TODO Mvc.Get.ControllerSuffix
                 var controllerTypeName = string.Format("{0}.{1}.{2}, {0}", MvcContext.Get.AssemblyName, MvcContext.Get.ControllersFolder, controllerName);
 
                 var controllerType = Type.GetType(controllerTypeName);
