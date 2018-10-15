@@ -4,6 +4,7 @@
     using ActionResults;
     using ActionResults.Contracts;
     using HTTP.Requests.Contracts;
+    using Models;
     using Utilities;
     using Views;
 
@@ -11,9 +12,12 @@
     {
         protected Controller()
         {
+            this.Model = new ViewModel();
         }
 
         public IHttpRequest Request { get; set; }
+
+        protected ViewModel Model { get; }
 
         protected IViewable View([CallerMemberName] string caller = "")
         {
