@@ -13,11 +13,14 @@
         protected Controller()
         {
             this.Model = new ViewModel();
+            this.ModelState = new Model();
         }
 
         public IHttpRequest Request { get; set; }
 
         protected ViewModel Model { get; }
+
+        public Model ModelState { get; }
 
         protected IViewable View([CallerMemberName] string caller = "")
         {
