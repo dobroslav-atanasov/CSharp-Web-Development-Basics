@@ -9,7 +9,7 @@
             this.Data = new Dictionary<string, object>();
         }
 
-        public IDictionary<string, object> Data { get; set; }
+        public IDictionary<string, object> Data { get; }
 
         public object this[string key]
         {
