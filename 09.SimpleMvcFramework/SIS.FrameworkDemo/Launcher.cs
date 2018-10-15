@@ -4,7 +4,7 @@
     using Framework.Routers;
     using WebServer;
 
-    public class Laucher
+    public class Launcher
     {
         public static void Main()
         {

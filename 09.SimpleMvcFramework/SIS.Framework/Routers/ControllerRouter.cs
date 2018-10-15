@@ -22,14 +22,14 @@
             string actionName = null;
             var requestMethod = request.RequestMethod.ToString();
 
-            if (request.Url == "/")
+            if (request.Path == "/" || request.Path == "/favicon.ico")
             {
                 controllerName = "Home";
                 actionName = "Index";
             }
             else
             {
-                var parts = request.Url.Split("/", StringSplitOptions.RemoveEmptyEntries);
+                var parts = request.Path.Split("/", StringSplitOptions.RemoveEmptyEntries);
                 controllerName = parts[0];
                 actionName = parts[1];
             }
