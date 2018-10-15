@@ -25,7 +25,7 @@
 
             var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, caller);
 
-            var view = new View(fullyQualifiedName);
+            var view = new View(fullyQualifiedName, this.Model.Data);
 
             return new ViewResult(view);
         }
