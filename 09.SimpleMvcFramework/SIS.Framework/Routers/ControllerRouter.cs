@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
     using ActionResults.Contracts;
@@ -42,7 +43,7 @@
                 return new HttpResponse(HttpResponseStatusCode.NotFound);
             }
 
-            var actionParameters = this.MapActionParameters(action, request);
+            var actionParameters = this.MapActionParameters(action, request, controller);
             var actionResult = this.InvokeAction(controller, action, actionParameters);
 
             return this.PrepareResponse(actionResult);
@@ -127,7 +128,7 @@
             }
         }
 
-        private object[] MapActionParameters(MethodInfo action, IHttpRequest request)
+        private object[] MapActionParameters(MethodInfo action, IHttpRequest request, Controller controller)
         {
             var actionParametersInfo = action.GetParameters();
             var mappedActionParameters = new object[actionParametersInfo.Length];
@@ -141,11 +142,39 @@
                 }
                 else
                 {
-                    mappedActionParameters[i] = this.ProcessBindingModelParameters(currentParameterInfo, request);
+                    var bindingModel = this.ProcessBindingModelParameters(currentParameterInfo, request);
+                    controller.ModelState.IsValid = this.IsValidModel(bindingModel, currentParameterInfo.ParameterType);
+                    mappedActionParameters[i] = bindingModel;
                 }
             }
 
             return mappedActionParameters;
+        }
+
+        private bool? IsValidModel(object bindingModel, Type parameterType)
+        {
+            var properties = parameterType.GetProperties();
+
+            foreach (var property in properties)
+            {
+                var propertyValidationAttributes = property
+                    .GetCustomAttributes()
+                    .Where(p => p is ValidationAttribute)
+                    .Cast<ValidationAttribute>()
+                    .ToList();
+
+                foreach (var validationAttribute in propertyValidationAttributes)
+                {
+                    var propertyValue = property.GetValue(bindingModel);
+
+                    if (!validationAttribute.IsValid(propertyValue))
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private object ProcessPrimitiveParameter(ParameterInfo currentParameterInfo, IHttpRequest request)
