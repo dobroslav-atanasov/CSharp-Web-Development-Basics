@@ -2,6 +2,6 @@
 {
     public class Model
     {
-
+        private bool? IsValid;
     }
 }
