@@ -1,23 +1,16 @@
 ﻿namespace SIS.WebServer
 {
     using System;
-    using System.IO;
-    using System.Linq;
     using System.Net.Sockets;
-    using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
     using Api;
     using HTTP.Common;
     using HTTP.Cookies;
-    using HTTP.Enums;
     using HTTP.Requests;
     using HTTP.Requests.Contracts;
-    using HTTP.Responses;
     using HTTP.Responses.Contracts;
     using HTTP.Sessions;
-    using Results;
-    using Routing;
 
     public class ConnectionHandler
     {
@@ -61,55 +54,6 @@
 
             return new HttpRequest(result.ToString());
         }
-
-        //private IHttpResponse HandleRequest(IHttpRequest httpRequest)
-        //{
-        //    var isResourceRequest = this.IsResourceRequest(httpRequest);
-
-        //    if (isResourceRequest)
-        //    {
-        //        return this.HandleRequestResponse(httpRequest.Path);
-        //    }
-
-        //    if (!this.handler.Routes.ContainsKey(httpRequest.RequestMethod)
-        //                        || !this.serverRoutingTable.Routes[httpRequest.RequestMethod].ContainsKey(httpRequest.Path))
-        //    {
-        //        return new HttpResponse(HttpResponseStatusCode.NotFound);
-        //    }
-
-        //    return this.serverRoutingTable.Routes[httpRequest.RequestMethod][httpRequest.Path].Invoke(httpRequest);
-        //}
-
-        //private IHttpResponse HandleRequestResponse(string httpRequestPath)
-        //{
-        //    var startNameResourceIndex = httpRequestPath.LastIndexOf("/");
-        //    var requestPathExtension = httpRequestPath.Substring(httpRequestPath.LastIndexOf("."));
-
-        //    var resourceName = httpRequestPath.Substring(startNameResourceIndex);
-
-        //    var resourcePath = $"../../../Resources/{requestPathExtension.Substring(1)}{resourceName}";
-
-        //    if (!File.Exists(resourcePath))
-        //    {
-        //        return new HttpResponse(HttpResponseStatusCode.NotFound);
-        //    }
-
-        //    var fileContent = File.ReadAllBytes(resourcePath);
-
-        //    return new InlineResourceResult(fileContent, HttpResponseStatusCode.Ok);
-        //}
-
-        //private bool IsResourceRequest(IHttpRequest httpRequest)
-        //{
-        //    var requestPath = httpRequest.Path;
-        //    if (requestPath.Contains("."))
-        //    {
-        //        var requestPathExtension = requestPath.Substring(requestPath.LastIndexOf("."));
-        //        return GlobalConstans.Extensions.Contains(requestPathExtension);
-        //    }
-        //    return false;
-        //}
-
 
         private async Task PrepareResponse(IHttpResponse httpResponse)
         {
