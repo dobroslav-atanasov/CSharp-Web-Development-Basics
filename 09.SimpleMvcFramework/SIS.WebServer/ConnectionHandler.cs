@@ -16,14 +16,17 @@
     {
         private readonly Socket client;
         private readonly IHttpHandler handler;
+        private readonly IHttpHandler resourceHandler;
 
-        public ConnectionHandler(Socket client, IHttpHandler handler)
+        public ConnectionHandler(Socket client, IHttpHandler handler, IHttpHandler resourceHandler)
         {
             CoreValidator.ThrowIfNull(client, nameof(client));
             CoreValidator.ThrowIfNull(handler, nameof(handler));
+            CoreValidator.ThrowIfNull(resourceHandler, nameof(resourceHandler));
 
             this.client = client;
             this.handler = handler;
+            this.resourceHandler = resourceHandler;
         }
 
         private async Task<IHttpRequest> ReadRequest()
@@ -63,12 +66,20 @@
 
         public async Task ProcessRequestAsync()
         {
-            var httpRequest = await this.ReadRequest();
+            var request = await this.ReadRequest();
 
-            if (httpRequest != null)
+            if (request != null)
             {
-                var sessionId = this.SetRequestSession(httpRequest);
-                var response = this.handler.Handle(httpRequest);
+                var sessionId = this.SetRequestSession(request);
+                IHttpResponse response = null;
+                if (request.Path.Contains("."))
+                {
+                    response = this.resourceHandler.Handle(request);
+                }
+                else
+                {
+                    response = this.handler.Handle(request);
+                }
 
                 this.SetResponseSession(response, sessionId);
                 await this.PrepareResponse(response);
