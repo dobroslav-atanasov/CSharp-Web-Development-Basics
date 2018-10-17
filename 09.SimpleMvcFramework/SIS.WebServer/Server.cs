@@ -5,7 +5,6 @@
     using System.Net.Sockets;
     using System.Threading.Tasks;
     using Api;
-    using Routing;
 
     public class Server
     {
@@ -14,13 +13,15 @@
         private readonly int port;
         private readonly TcpListener listener;
         private readonly IHttpHandler handler;
+        private readonly IHttpHandler resourceHandler;
         private bool isRunning;
 
-        public Server(int port, IHttpHandler handler)
+        public Server(int port, IHttpHandler handler, IHttpHandler resourceHandler)
         {
             this.port = port;
             this.listener = new TcpListener(IPAddress.Parse(LocalHostIpAddress), port);
             this.handler = handler;
+            this.resourceHandler = resourceHandler;
         }
 
         public void Run()
@@ -39,7 +40,7 @@
             while (this.isRunning)
             {
                 var client = await this.listener.AcceptSocketAsync();
-                var connectionHandler = new ConnectionHandler(client, this.handler);
+                var connectionHandler = new ConnectionHandler(client, this.handler, this.resourceHandler);
                 var responseTask = connectionHandler.ProcessRequestAsync();
                 responseTask.Wait();
             }
