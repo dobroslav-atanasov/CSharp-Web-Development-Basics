@@ -24,14 +24,6 @@
             string actionName = null;
             var requestMethod = request.RequestMethod.ToString();
 
-            var isResourceRequest = this.IsResourceRequest(request);
-
-            if (isResourceRequest)
-            {
-                var resourceRouter = new ResourceRouter();
-                return resourceRouter.Handle(request);
-            }
-
             if (request.Path == "/" || request.Path == "/favicon.ico")
             {
                 controllerName = "Home";
@@ -231,17 +223,6 @@
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
         {
             return (IActionResult)action.Invoke(controller, actionParameters);
-        }
-
-        private bool IsResourceRequest(IHttpRequest httpRequest)
-        {
-            var requestPath = httpRequest.Path;
-            if (requestPath.Contains("."))
-            {
-                var requestPathExtension = requestPath.Substring(requestPath.LastIndexOf("."));
-                return GlobalConstans.Extensions.Contains(requestPathExtension);
-            }
-            return false;
         }
     }
 }
