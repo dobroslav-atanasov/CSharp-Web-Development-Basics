@@ -9,10 +9,10 @@
                 <a class="nav-link" href="/"><i class="fas fa-home"></i>  Home<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/User/Login"><i class="fas fa-user-check"></i>  Login</a>
+                <a class="nav-link" href="/Album/All"><i class="fas fa-drum-steelpan"></i>  Albums</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/User/Register"><i class="fas fa-user-plus"></i>  Register</a>
+                <a class="nav-link" href="/User/Logout"><i class="fas fa-user-times"></i>  Logout</a>
             </li>
         </ul>
     </div>
@@ -21,13 +21,10 @@
 
 <div class="jumbotron jumbotron-fluid bg-primary">
     <div class="container">
-        <h1 class="display-4 text-white">Welcome to IRunes</h1>
+        <h1 class="text-warning display-4">Welcome, @Model.Username</h1>
         <hr style="height: 1px; background-color: white" />
         <h3 class="text-white">
-            <a class="btn btn-warning btn-lg" href="/User/Login" role="button">Login</a> if you have an account.
-        </h3>
-        <h3 class="text-white">
-            <a class="btn btn-warning btn-lg" href="/User/Register" role="button">Register</a> if you don't.
+            IRunes wishes you a fun experience.
         </h3>
     </div>
 </div>
