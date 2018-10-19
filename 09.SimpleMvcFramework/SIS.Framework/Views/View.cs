@@ -7,6 +7,10 @@
 
     public class View : IRenderable
     {
+        private const string LayoutFile = "Layout.html";
+        private const string ViewNotFound = "View does not exist!";
+        private const string RenderBody = "@RenderBody";
+
         private readonly string fullyQualifiedTemplateName;
         private readonly IDictionary<string, object> viewData;
 
@@ -31,7 +35,9 @@
         {
             var html = this.ReadFile();
             var renderHtml = this.RenderHtml(html);
-            return renderHtml;
+
+            var layout = this.AddViewToLayout(renderHtml);
+            return layout;
         }
 
         private string RenderHtml(string html)
@@ -47,6 +53,21 @@
             }
 
             return renderHtml;
+        }
+
+        private string AddViewToLayout(string renderHtml)
+        {
+            var layoutPath = $"../../../{MvcContext.Get.ViewsFolder}/{LayoutFile}";
+
+            if (!File.Exists(layoutPath))
+            {
+                throw new FileNotFoundException(ViewNotFound);
+            }
+
+            var layoutHtml = File.ReadAllText(layoutPath);
+            var layout = layoutHtml.Replace(RenderBody, renderHtml);
+
+            return layout;
         }
     }
 }
