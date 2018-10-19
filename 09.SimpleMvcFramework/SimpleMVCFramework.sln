@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrameworkDemo", "FrameworkD
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IRunes", "IRunes", "{843E9ABF-8ECF-4D18-BCEB-32FB0F9D04A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRunes.Models", "IRunes.Models\IRunes.Models.csproj", "{49C27BEC-FEC6-42E0-A7F6-46CA8F032801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{28A6DAF9-F942-4DBD-9249-FB66C44D511E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28A6DAF9-F942-4DBD-9249-FB66C44D511E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28A6DAF9-F942-4DBD-9249-FB66C44D511E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49C27BEC-FEC6-42E0-A7F6-46CA8F032801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49C27BEC-FEC6-42E0-A7F6-46CA8F032801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49C27BEC-FEC6-42E0-A7F6-46CA8F032801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49C27BEC-FEC6-42E0-A7F6-46CA8F032801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +53,7 @@ Global
 		{28A6DAF9-F942-4DBD-9249-FB66C44D511E} = {CA75F458-8445-406D-853D-2EBC3FDD0ED7}
 		{CA75F458-8445-406D-853D-2EBC3FDD0ED7} = {C15560F8-8589-4D94-B646-FF7DD2A2FF8A}
 		{843E9ABF-8ECF-4D18-BCEB-32FB0F9D04A1} = {C15560F8-8589-4D94-B646-FF7DD2A2FF8A}
+		{49C27BEC-FEC6-42E0-A7F6-46CA8F032801} = {843E9ABF-8ECF-4D18-BCEB-32FB0F9D04A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14A853B3-FC44-4357-8549-AF66448277CD}
