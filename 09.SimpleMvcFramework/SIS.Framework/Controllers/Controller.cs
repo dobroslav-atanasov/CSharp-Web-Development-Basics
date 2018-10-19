@@ -37,5 +37,10 @@
         {
             return new RedirectResult(redirectUrl);
         }
+
+        protected bool IsLoggedIn()
+        {
+            return this.Request.Session.ContainsParameter("username");
+        }
     }
 }
