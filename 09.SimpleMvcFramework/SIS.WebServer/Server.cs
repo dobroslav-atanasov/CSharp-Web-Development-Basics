@@ -12,16 +12,14 @@
 
         private readonly int port;
         private readonly TcpListener listener;
-        private readonly IHttpHandler handler;
-        private readonly IHttpHandler resourceHandler;
+        private readonly IHttpHandlerContext handler;
         private bool isRunning;
 
-        public Server(int port, IHttpHandler handler, IHttpHandler resourceHandler)
+        public Server(int port, IHttpHandlerContext handler)
         {
             this.port = port;
             this.listener = new TcpListener(IPAddress.Parse(LocalHostIpAddress), port);
             this.handler = handler;
-            this.resourceHandler = resourceHandler;
         }
 
         public void Run()
@@ -40,7 +38,7 @@
             while (this.isRunning)
             {
                 var client = await this.listener.AcceptSocketAsync();
-                var connectionHandler = new ConnectionHandler(client, this.handler, this.resourceHandler);
+                var connectionHandler = new ConnectionHandler(client, this.handler);
                 var responseTask = connectionHandler.ProcessRequestAsync();
                 responseTask.Wait();
             }
