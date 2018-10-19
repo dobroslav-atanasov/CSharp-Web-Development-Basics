@@ -15,18 +15,15 @@
     public class ConnectionHandler
     {
         private readonly Socket client;
-        private readonly IHttpHandler handler;
-        private readonly IHttpHandler resourceHandler;
+        private readonly IHttpHandlerContext handler;
 
-        public ConnectionHandler(Socket client, IHttpHandler handler, IHttpHandler resourceHandler)
+        public ConnectionHandler(Socket client, IHttpHandlerContext handler)
         {
             CoreValidator.ThrowIfNull(client, nameof(client));
             CoreValidator.ThrowIfNull(handler, nameof(handler));
-            CoreValidator.ThrowIfNull(resourceHandler, nameof(resourceHandler));
 
             this.client = client;
             this.handler = handler;
-            this.resourceHandler = resourceHandler;
         }
 
         private async Task<IHttpRequest> ReadRequest()
@@ -71,15 +68,7 @@
             if (request != null)
             {
                 var sessionId = this.SetRequestSession(request);
-                IHttpResponse response = null;
-                if (request.Path.Contains("."))
-                {
-                    response = this.resourceHandler.Handle(request);
-                }
-                else
-                {
-                    response = this.handler.Handle(request);
-                }
+                var response = this.handler.Handler(request);
 
                 this.SetResponseSession(response, sessionId);
                 await this.PrepareResponse(response);
