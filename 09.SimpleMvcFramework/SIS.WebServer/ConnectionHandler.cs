@@ -68,7 +68,7 @@
             if (request != null)
             {
                 var sessionId = this.SetRequestSession(request);
-                var response = this.handler.Handler(request);
+                var response = this.handler.Handle(request);
 
                 this.SetResponseSession(response, sessionId);
                 await this.PrepareResponse(response);
