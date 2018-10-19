@@ -5,6 +5,6 @@
 
     public interface IHttpHandlerContext
     {
-        IHttpResponse Handler(IHttpRequest request);
+        IHttpResponse Handle(IHttpRequest request);
     }
 }
