@@ -1,5 +1,6 @@
 ﻿namespace IRunes.App
 {
+    using Controllers;
     using Services;
     using Services.Contracts;
     using SIS.Framework;
@@ -7,6 +8,7 @@
     using SIS.Framework.Services;
     using SIS.Framework.Services.Contracts;
     using SIS.WebServer;
+    using SIS.WebServer.Api;
 
     public class Launcher
     {
@@ -24,7 +26,13 @@
         {
             var services = new DependencyContainer();
 
+            services.RegisterDependency<IHttpHandler, ControllerRouter>();
+            services.RegisterDependency<UserController, UserController>();
+            services.RegisterDependency<UserController, UserController>();
+
+            services.RegisterDependency<IUserCookieService, UserCookieService>();
             services.RegisterDependency<IUserService, UserService>();
+            services.RegisterDependency<IHashService, HashService>();
 
             return services;
         }
