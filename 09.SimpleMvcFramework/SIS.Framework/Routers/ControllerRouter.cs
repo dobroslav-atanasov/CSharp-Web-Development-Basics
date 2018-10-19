@@ -13,11 +13,19 @@
     using HTTP.Requests.Contracts;
     using HTTP.Responses;
     using HTTP.Responses.Contracts;
+    using Services.Contracts;
     using WebServer.Api;
     using WebServer.Results;
 
     public class ControllerRouter : IHttpHandler
     {
+        private readonly IDependencyContainer dependencyContainer;
+
+        public ControllerRouter(IDependencyContainer dependencyContainer)
+        {
+            this.dependencyContainer = dependencyContainer;
+        }
+
         public IHttpResponse Handle(IHttpRequest request)
         {
             string controllerName = null;
@@ -58,7 +66,13 @@
                     MvcContext.Get.AssemblyName, MvcContext.Get.ControllersFolder, controllerName, MvcContext.Get.ControllersSuffix);
 
                 var controllerType = Type.GetType(controllerTypeName);
-                var controller = (Controller)Activator.CreateInstance(controllerType);
+                var constructorInfo = controllerType.GetConstructors().FirstOrDefault();
+                var parameters = constructorInfo
+                    .GetParameters()
+                    .Select(p => this.dependencyContainer.CreateInstance(p.ParameterType))
+                    .ToArray();
+
+                var controller = (Controller)Activator.CreateInstance(controllerType, parameters);
 
                 if (controller != null)
                 {
