@@ -208,7 +208,7 @@
             {
                 try
                 {
-                    var value = this.GetParameterFromRequestData(request, property.Name);
+                    var value = this.GetParameterFromRequestData(request, property.Name.ToLower());
                     property.SetValue(bindingModelInstance, Convert.ChangeType(value, property.PropertyType));
                 }
                 catch
