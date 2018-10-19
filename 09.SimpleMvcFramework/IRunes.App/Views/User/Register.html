@@ -19,6 +19,10 @@
 </nav>
 <hr style="height: 1px; background-color: #007bff" />
 
+<div style="display: {{{DisplayError}}}" class="alert alert-danger" role="alert">
+    {{{ErrorMessage}}}
+</div>
+
 <div class="container">
     <div class="row justify-content-center">
         <h1 class="text-primary">Register</h1>
@@ -36,8 +40,8 @@
                     <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" required class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+                    <label for="confirmpassword">Confirm Password</label>
+                    <input type="password" required class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
