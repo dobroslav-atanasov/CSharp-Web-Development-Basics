@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.FrameworkDemo", "SIS.Fr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{C15560F8-8589-4D94-B646-FF7DD2A2FF8A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrameworkDemo", "FrameworkDemo", "{CA75F458-8445-406D-853D-2EBC3FDD0ED7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,7 +42,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{28A6DAF9-F942-4DBD-9249-FB66C44D511E} = {C15560F8-8589-4D94-B646-FF7DD2A2FF8A}
+		{28A6DAF9-F942-4DBD-9249-FB66C44D511E} = {CA75F458-8445-406D-853D-2EBC3FDD0ED7}
+		{CA75F458-8445-406D-853D-2EBC3FDD0ED7} = {C15560F8-8589-4D94-B646-FF7DD2A2FF8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {14A853B3-FC44-4357-8549-AF66448277CD}
