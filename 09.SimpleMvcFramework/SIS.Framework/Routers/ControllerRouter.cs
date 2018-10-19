@@ -24,7 +24,7 @@
             string actionName = null;
             var requestMethod = request.RequestMethod.ToString();
 
-            if (request.Path == "/" || request.Path == "/favicon.ico")
+            if (request.Path == "/" /*|| request.Path == "/favicon.ico"*/)
             {
                 controllerName = "Home";
                 actionName = "Index";
