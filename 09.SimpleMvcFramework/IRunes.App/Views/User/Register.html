@@ -17,40 +17,45 @@
         </ul>
     </div>
 </nav>
+
 <hr style="height: 1px; background-color: #007bff" />
 
-<div style="display: {{{DisplayError}}}" class="alert alert-danger" role="alert">
-    {{{ErrorMessage}}}
+<div style="display: {{{DisplayError}}}">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 alert alert-danger text-center" role="alert">
+            {{{ErrorMessage}}}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 </div>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <h1 class="text-primary">Register</h1>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <h1 class="text-primary" style="text-align: center">Register</h1>
+        <hr style="height: 1px; background-color: #007bff" />
+        <form method="post" action="/User/Register">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" required="" class="form-control" id="username" name="username" aria-describedby="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="confirmpassword">Confirm Password</label>
+                <input type="password" required class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" required class="form-control" id="email" name="email" aria-describedby="email" placeholder="Email">
+            </div>
+            <div class="row justify-content-center">
+                <button type="submit" class="btn btn-warning btn-lg">Register</button>
+            </div>
+        </form>
     </div>
-    <div class="row justify-content-center">
-        <div class="col-8">
-            <hr style="height: 1px; background-color: #007bff" />
-            <form method="post" action="/User/Register">
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" required="" class="form-control" id="username" name="username" aria-describedby="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" required class="form-control" id="password" name="password" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="confirmpassword">Confirm Password</label>
-                    <input type="password" required class="form-control" id="confirmpassword" name="confirmpassword" placeholder="Confirm Password">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" required class="form-control" id="email" name="email" aria-describedby="email" placeholder="Email">
-                </div>
-                <div class="row justify-content-center">
-                    <button type="submit" class="btn btn-warning btn-lg">Register</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <div class="col-md-3"></div>
 </div>
