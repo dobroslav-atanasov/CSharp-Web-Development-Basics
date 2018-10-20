@@ -106,6 +106,18 @@
             return new RedirectResult("/");
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            if (!this.Request.Session.ContainsParameter("username"))
+            {
+                return new RedirectResult("/");
+            }
+
+            this.Request.Session.ClearParameters();
+            return new RedirectResult("/");
+        }
+
         private bool IsValidModel(string username, string password, string confirmPassword)
         {
             return username.Length >= 3 && password.Length >= 3 && password == confirmPassword;
