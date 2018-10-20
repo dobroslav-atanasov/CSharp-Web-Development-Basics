@@ -5,6 +5,8 @@
 
     public class HttpCookie
     {
+        public const string Auth = ".auth-irunes";
+
         private const int HttpCookieDefaultExpiresDays = 3;
 
         public HttpCookie(string key, string value, int expires = HttpCookieDefaultExpiresDays)
