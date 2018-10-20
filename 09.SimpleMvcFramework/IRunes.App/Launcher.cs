@@ -27,7 +27,7 @@
             var services = new DependencyContainer();
 
             services.RegisterDependency<IHttpHandler, ControllerRouter>();
-            services.RegisterDependency<UserController, UserController>();
+            services.RegisterDependency<HomeController, HomeController>();
             services.RegisterDependency<UserController, UserController>();
 
             services.RegisterDependency<IUserCookieService, UserCookieService>();
