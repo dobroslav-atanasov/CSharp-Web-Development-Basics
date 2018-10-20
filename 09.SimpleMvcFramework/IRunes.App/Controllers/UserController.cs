@@ -5,6 +5,8 @@
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
+    using SIS.Framework.Services.Contracts;
+    using SIS.HTTP.Cookies;
     using SIS.HTTP.Extensions;
     using ViewModels;
 
@@ -16,14 +18,17 @@
         private const string ErrorMessage = "ErrorMessage";
         private const string InvalidRegistrationData = "Invalid registration data!";
         private const string UsernameExists = "Username exists!";
-        
+        private const string InvalidLoginData = "Invalid username or password!";
+
         private readonly IUserService userService;
         private readonly IHashService hashService;
+        private readonly IUserCookieService userCookieService;
 
-        public UserController(IUserService userService, IHashService hashService)
+        public UserController(IUserService userService, IHashService hashService, IUserCookieService userCookieService)
         {
             this.userService = userService;
             this.hashService = hashService;
+            this.userCookieService = userCookieService;
         }
 
         [HttpGet]
@@ -58,7 +63,46 @@
             var hashPassword = this.hashService.Hash(password);
             this.userService.AddUser(username, hashPassword, email);
 
-            this.SignInUser(username);
+            // Create cookie and session
+            var cookieContent = this.userCookieService.GetUserCookie(username);
+            var cookie = new HttpCookie(HttpCookie.Auth, cookieContent, 7) { HttpOnly = true };
+            this.Response.Cookies.Add(cookie);
+
+            // Login
+            this.SignInUser(username, cookieContent);
+
+            // Response
+            return new RedirectResult("/");
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            this.Model.Data[DisplayError] = None;
+            return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(UserLoginViewModel model)
+        {
+            var username = model.Username.UrlDecode();
+            var password = model.Password.UrlDecode();
+
+            var hashPassword = this.hashService.Hash(password);
+            var user = this.userService.GetUserWithUsernameOrEmail(username, hashPassword);
+
+            if (user == null)
+            {
+                this.Model.Data[DisplayError] = Inline;
+                this.Model.Data[ErrorMessage] = InvalidLoginData;
+                return this.View();
+            }
+
+            // Login
+            var userCookie = this.userCookieService.GetUserCookie(username);
+            this.SignInUser(username, userCookie);
+
+            // Response
             return new RedirectResult("/");
         }
 
