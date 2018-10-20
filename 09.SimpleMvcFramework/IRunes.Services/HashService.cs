@@ -12,7 +12,7 @@
             using (var sha256 = SHA256.Create())
             {
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(hashToString));
-                var hash = BitConverter.ToString(hashedBytes).ToUpper();
+                var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
 
                 return hash;
             }

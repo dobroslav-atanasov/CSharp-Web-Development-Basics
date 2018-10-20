@@ -47,13 +47,13 @@
             }
         }
 
-        public User GetUserWithUsernameOrEmail(string usernameOrEmail, string hashPassword)
+        public User GetUserWithUsernameOrEmail(string username, string hashPassword)
         {
             using (var content = new IRunesDbContext())
             {
                 var user = content
                     .Users
-                    .FirstOrDefault(x => (x.Username == usernameOrEmail || x.Email == usernameOrEmail) && x.Password == hashPassword);
+                    .FirstOrDefault(x => (x.Username == username || x.Email == username) && x.Password == hashPassword);
 
                 return user;
             }

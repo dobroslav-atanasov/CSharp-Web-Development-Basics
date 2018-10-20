@@ -6,7 +6,7 @@
     {
         User GetUser(string username, string hashPassword);
 
-        User GetUserWithUsernameOrEmail(string usernameOrEmail, string hashPassword);
+        User GetUserWithUsernameOrEmail(string username, string hashPassword);
 
         void AddUser(string username, string hashPassword, string email);
 
