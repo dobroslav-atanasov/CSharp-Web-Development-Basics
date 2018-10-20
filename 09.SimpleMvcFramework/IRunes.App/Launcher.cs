@@ -29,10 +29,12 @@
             services.RegisterDependency<IHttpHandler, ControllerRouter>();
             services.RegisterDependency<HomeController, HomeController>();
             services.RegisterDependency<UserController, UserController>();
+            services.RegisterDependency<AlbumController, AlbumController>();
 
             services.RegisterDependency<IUserCookieService, UserCookieService>();
             services.RegisterDependency<IUserService, UserService>();
             services.RegisterDependency<IHashService, HashService>();
+            services.RegisterDependency<IAlbumService, AlbumService>();
 
             return services;
         }
