@@ -5,7 +5,6 @@
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
-    using SIS.Framework.Services.Contracts;
     using SIS.HTTP.Cookies;
     using SIS.HTTP.Extensions;
     using ViewModels;
