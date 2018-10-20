@@ -30,11 +30,13 @@
             services.RegisterDependency<HomeController, HomeController>();
             services.RegisterDependency<UserController, UserController>();
             services.RegisterDependency<AlbumController, AlbumController>();
+            services.RegisterDependency<TrackService, TrackService>();
 
             services.RegisterDependency<IUserCookieService, UserCookieService>();
             services.RegisterDependency<IUserService, UserService>();
             services.RegisterDependency<IHashService, HashService>();
             services.RegisterDependency<IAlbumService, AlbumService>();
+            services.RegisterDependency<ITrackService, TrackService>();
 
             return services;
         }
