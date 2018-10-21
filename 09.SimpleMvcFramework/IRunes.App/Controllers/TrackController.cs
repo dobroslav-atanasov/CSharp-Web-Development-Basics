@@ -5,6 +5,7 @@
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
+    using SIS.HTTP.Extensions;
     using ViewModels;
 
     public class TrackController : Controller
@@ -13,6 +14,7 @@
         private const string Inline = "inline";
         private const string DisplayError = "DisplayError";
         private const string ErrorMessage = "ErrorMessage";
+        private const string TrackAlreadyExists = "Track already exists!";
 
         private readonly ITrackService trackService;
         private readonly IAlbumService albumService;
@@ -52,7 +54,37 @@
         [HttpPost]
         public IActionResult Create(TrackCreateViewModel model)
         {
-            return null;
+            if (!this.IsLoggedIn())
+            {
+                return new RedirectResult("/Album/All");
+            }
+
+            if (!this.Request.QueryData.ContainsKey("albumId"))
+            {
+                return new RedirectResult("/Album/All");
+            }
+
+            var albumId = int.Parse(this.Request.QueryData["albumId"].ToString());
+            var album = this.albumService.GetAlbum(albumId);
+            if (album == null)
+            {
+                return new RedirectResult("/Album/All");
+            }
+
+            var name = model.Name.UrlDecode();
+            var link = model.Link.UrlDecode();
+            var price = model.Price;
+
+            if (this.trackService.ContainsTrack(name))
+            {
+                this.Model.Data[DisplayError] = Inline;
+                this.Model.Data[ErrorMessage] = TrackAlreadyExists;
+                return new RedirectResult($"/Track/Create?albumId={albumId}");
+            }
+
+            this.trackService.AddTrack(name, link, price, albumId);
+
+            return new RedirectResult($"/Album/Details?id={albumId}");
         }
     }
 }
