@@ -30,7 +30,7 @@
         {
             if (!this.IsLoggedIn())
             {
-                return new RedirectResult("/Album/All");
+                return new RedirectResult("/User/Login");
             }
 
             if (!this.Request.QueryData.ContainsKey("albumId"))
@@ -46,6 +46,7 @@
             }
 
             this.Model.Data[DisplayError] = None;
+            this.Model.Data["AlbumId"] = albumId;
             this.Model.Data["Action"] = $"/Track/Create?albumId={albumId}";
 
             return this.View();
@@ -56,7 +57,7 @@
         {
             if (!this.IsLoggedIn())
             {
-                return new RedirectResult("/Album/All");
+                return new RedirectResult("/User/Login");
             }
 
             if (!this.Request.QueryData.ContainsKey("albumId"))
@@ -79,12 +80,49 @@
             {
                 this.Model.Data[DisplayError] = Inline;
                 this.Model.Data[ErrorMessage] = TrackAlreadyExists;
-                return new RedirectResult($"/Track/Create?albumId={albumId}");
+                return this.View();
             }
 
             this.trackService.AddTrack(name, link, price, albumId);
 
             return new RedirectResult($"/Album/Details?id={albumId}");
+        }
+
+        [HttpGet]
+        public IActionResult Details()
+        {
+            if (!this.IsLoggedIn())
+            {
+                return new RedirectResult("/User/Login");
+            }
+
+            if (!this.Request.QueryData.ContainsKey("albumId") || !this.Request.QueryData.ContainsKey("trackId"))
+            {
+                return new RedirectResult("/Album/All");
+            }
+
+            var albumId = int.Parse(this.Request.QueryData["albumId"].ToString());
+            var trackId = int.Parse(this.Request.QueryData["trackId"].ToString());
+
+            var album = this.albumService.GetAlbum(albumId);
+            var track = this.trackService.GetTrack(trackId);
+
+            if (album == null)
+            {
+                return new RedirectResult("/Album/All");
+            }
+
+            if (track == null)
+            {
+                return new RedirectResult($"/Album/Details?id={albumId}");
+            }
+
+            this.Model.Data["Name"] = track.Name;
+            this.Model.Data["Price"] = track.Price;
+            this.Model.Data["AlbumId"] = albumId;
+            this.Model.Data["Link"] = track.Link;
+
+            return this.View();
         }
     }
 }
