@@ -7,67 +7,80 @@
 
     public class View : IRenderable
     {
-        private const string LayoutFile = "Layout.html";
-        private const string ViewNotFound = "View does not exist!";
-        private const string RenderBody = "@RenderBody";
+        private readonly string fullHtmlContent;
 
-        private readonly string fullyQualifiedTemplateName;
-        private readonly IDictionary<string, object> viewData;
-
-        public View(string fullyQualifiedTemplateName, IDictionary<string, object> viewData)
+        public View(string fullHtmlContent)
         {
-            this.fullyQualifiedTemplateName = fullyQualifiedTemplateName;
-            this.viewData = viewData;
-        }
-
-        private string ReadFile()
-        {
-            if (!File.Exists(this.fullyQualifiedTemplateName))
-            {
-                throw new FileNotFoundException();
-            }
-
-            var html = File.ReadAllText(this.fullyQualifiedTemplateName);
-            return html;
+            this.fullHtmlContent = fullHtmlContent;
         }
 
         public string Render()
         {
-            var html = this.ReadFile();
-            var renderHtml = this.RenderHtml(html);
-
-            var layout = this.AddViewToLayout(renderHtml);
-            return layout;
+            return this.fullHtmlContent;
         }
 
-        private string RenderHtml(string html)
-        {
-            var renderHtml = html;
+        //private const string LayoutFile = "Layout.html";
+        //private const string ViewNotFound = "View does not exist!";
+        //private const string RenderBody = "@RenderBody";
 
-            if (this.viewData.Any())
-            {
-                foreach (var pair in this.viewData)
-                {
-                    renderHtml = renderHtml.Replace($"{{{{{{{pair.Key}}}}}}}", pair.Value.ToString());
-                }
-            }
+        //private readonly string fullyQualifiedTemplateName;
+        //private readonly IDictionary<string, object> viewData;
 
-            return renderHtml;
-        }
+        //public View(string fullyQualifiedTemplateName, IDictionary<string, object> viewData)
+        //{
+        //    this.fullyQualifiedTemplateName = fullyQualifiedTemplateName;
+        //    this.viewData = viewData;
+        //}
 
-        private string AddViewToLayout(string renderHtml)
-        {
-            var layoutPath = $"../../../{MvcContext.Get.ViewsFolder}/{LayoutFile}";
+        //private string ReadFile()
+        //{
+        //    if (!File.Exists(this.fullyQualifiedTemplateName))
+        //    {
+        //        throw new FileNotFoundException();
+        //    }
 
-            if (!File.Exists(layoutPath))
-            {
-                throw new FileNotFoundException(ViewNotFound);
-            }
+        //    var html = File.ReadAllText(this.fullyQualifiedTemplateName);
+        //    return html;
+        //}
 
-            var layoutHtml = File.ReadAllText(layoutPath);
-            var layout = layoutHtml.Replace(RenderBody, renderHtml);
+        //public string Render()
+        //{
+        //    var html = this.ReadFile();
+        //    var renderHtml = this.RenderHtml(html);
 
-            return layout;
-        }
+        //    var layout = this.AddViewToLayout(renderHtml);
+        //    return layout;
+        //}
+
+        //private string RenderHtml(string html)
+        //{
+        //    var renderHtml = html;
+
+        //    if (this.viewData.Any())
+        //    {
+        //        foreach (var pair in this.viewData)
+        //        {
+        //            renderHtml = renderHtml.Replace($"{{{{{{{pair.Key}}}}}}}", pair.Value.ToString());
+        //        }
+        //    }
+
+        //    return renderHtml;
+        //}
+
+        //private string AddViewToLayout(string renderHtml)
+        //{
+        //    var layoutPath = $"../../../{MvcContext.Get.ViewsFolder}/{LayoutFile}";
+
+        //    if (!File.Exists(layoutPath))
+        //    {
+        //        throw new FileNotFoundException(ViewNotFound);
+        //    }
+
+        //    var layoutHtml = File.ReadAllText(layoutPath);
+        //    var layout = layoutHtml.Replace(RenderBody, renderHtml);
+
+        //    return layout;
+        //}
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace SIS.Framework.Controllers
 {
+    using System;
+    using System.IO;
     using System.Runtime.CompilerServices;
     using ActionResults;
     using ActionResults.Contracts;
@@ -35,16 +37,38 @@
         // New
         public IIdentity Identity => (IIdentity)this.Request.Session.GetParameter(Auth);
 
-        protected IViewable View([CallerMemberName] string caller = "")
+        private ViewEngine ViewEngine { get; }  = new ViewEngine();
+
+        protected IViewable View([CallerMemberName] string actionName = "")
         {
             var controllerName = ControllerUtilities.GetControllerName(this);
+            string viewContent = null;
 
-            var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, caller);
+            try
+            {
+                viewContent = this.ViewEngine.GetViewContent(controllerName, actionName);
+            }
+            catch (FileNotFoundException ex)
+            {
+                this.Model.Data["Error"] = ex.Message;
+                viewContent = this.ViewEngine.GetErrorContent();
+            }
 
-            var view = new View(fullyQualifiedName, this.Model.Data);
-
-            return new ViewResult(view);
+            var renderedContent = this.ViewEngine.RenderHtml(viewContent, this.Model.Data);
+            return new ViewResult(new View(renderedContent));
         }
+
+        // Old
+        //protected IViewable View([CallerMemberName] string caller = "")
+        //{
+        //    var controllerName = ControllerUtilities.GetControllerName(this);
+
+        //    var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, caller);
+
+        //    var view = new View(fullyQualifiedName, this.Model.Data);
+
+        //    return new ViewResult(view);
+        //}
 
         protected IRedirectable RedirectToAction(string redirectUrl)
         {
