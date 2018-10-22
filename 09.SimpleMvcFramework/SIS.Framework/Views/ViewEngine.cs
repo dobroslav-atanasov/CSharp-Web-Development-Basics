@@ -56,7 +56,12 @@
 
         private string RenderObject(object viewObject, string displayTemplate)
         {
-            return null;
+            foreach (var property in viewObject.GetType().GetProperties())
+            {
+                displayTemplate = this.RenderViewData(displayTemplate, property.GetValue(viewObject), property.Name);
+            }
+
+            return displayTemplate;
         }
 
         private string RenderViewData(string template, object viewObject, string viewObjectName = null)
