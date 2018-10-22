@@ -5,4 +5,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SIS.Framework\SIS.Framework.csproj" />
+    <ProjectReference Include="..\SIS.WebServer\SIS.WebServer.csproj" />
+  </ItemGroup>
+
 </Project>
