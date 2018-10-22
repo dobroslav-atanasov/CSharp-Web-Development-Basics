@@ -5,7 +5,9 @@
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Reflection;
+    using ActionResults;
     using ActionResults.Contracts;
+    using Attributes.Action;
     using Attributes.Methods;
     using Controllers;
     using HTTP.Common;
@@ -14,8 +16,10 @@
     using HTTP.Responses;
     using HTTP.Responses.Contracts;
     using Services.Contracts;
+    using Utilities;
     using WebServer.Api;
     using WebServer.Results;
+    using RedirectResult = WebServer.Results.RedirectResult;
 
     public class ControllerRouter : IHttpHandler
     {
@@ -55,7 +59,7 @@
             var actionParameters = this.MapActionParameters(action, request, controller);
             var actionResult = this.InvokeAction(controller, action, actionParameters);
 
-            return this.PrepareResponse(actionResult);
+            return this.Authorize(controller, action) ?? this.PrepareResponse(actionResult);
         }
 
         private Controller GetController(string controllerName, IHttpRequest request)
@@ -237,6 +241,21 @@
         private IActionResult InvokeAction(Controller controller, MethodInfo action, object[] actionParameters)
         {
             return (IActionResult)action.Invoke(controller, actionParameters);
+        }
+
+        // method for Security
+        private IHttpResponse Authorize(Controller controller, MemberInfo action)
+        {
+            if (action
+                .GetCustomAttributes()
+                .Where(a => a is AuthorizeAttribute)
+                .Cast<AuthorizeAttribute>()
+                .Any(a => !a.IsAuthorized(controller.Identity)))
+            {
+                return new UnauthorizedResult();
+            }
+
+            return null;
         }
     }
 }

@@ -9,11 +9,14 @@
     using HTTP.Responses;
     using HTTP.Responses.Contracts;
     using Models;
+    using Security.Contracts;
     using Utilities;
     using Views;
 
     public abstract class Controller
     {
+        private const string Auth = "auth";
+
         protected Controller()
         {
             this.Model = new ViewModel();
@@ -28,6 +31,9 @@
         protected ViewModel Model { get; }
 
         public Model ModelState { get; }
+
+        // New
+        public IIdentity Identity => (IIdentity)this.Request.Session.GetParameter(Auth);
 
         protected IViewable View([CallerMemberName] string caller = "")
         {
@@ -45,15 +51,27 @@
             return new RedirectResult(redirectUrl);
         }
 
+        // Old method
         protected bool IsLoggedIn()
         {
             return this.Request.Session.ContainsParameter("username");
         }
 
+        // Old method
         protected void SignInUser(string username, string userCookie)
         {
             this.Request.Session.AddParameter("username", username);
             this.Response.Cookies.Add(new HttpCookie(HttpCookie.Auth, userCookie));
+        }
+
+        protected void SignIn(IIdentity auth)
+        {
+            this.Request.Session.AddParameter(Auth, auth);
+        }
+
+        protected void SignOut()
+        {
+            this.Request.Session.ClearParameters();
         }
     }
 }
