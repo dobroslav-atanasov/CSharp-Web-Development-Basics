@@ -15,13 +15,13 @@
         private const string ViewExtension = "html";
         private const string ModelCollectionViewParameterPattern = @"@Model\.Collection\.(\w+)\((.+)\)";
 
-        private string ViewsFolderPath => $@"{ViewPathPrefix}\{MvcContext.Get.ViewsFolder}\";
-        private string ViewsSharedFolderPath => $@"{this.ViewsFolderPath}Shared\";
-        private string ViewsDisplayTemplateFolderPath => $@"{this.ViewsSharedFolderPath}\DisplayTemplates\";
+        private string ViewsFolderPath => $@"{ViewPathPrefix}/{MvcContext.Get.ViewsFolder}/";
+        private string ViewsSharedFolderPath => $@"{this.ViewsFolderPath}Shared/";
+        private string ViewsDisplayTemplateFolderPath => $@"{this.ViewsSharedFolderPath}/DisplayTemplates/";
 
         private string FormatLayoutViewPath() => $@"{this.ViewsSharedFolderPath}{LayoutViewName}.{ViewExtension}";
         private string FormatErrorViewPath() => $@"{this.ViewsSharedFolderPath}{ErrorViewFile}.{ViewExtension}";
-        private string FormatViewPath(string controllerName, string actionName) => $@"{this.ViewsFolderPath}\{controllerName}\{actionName}.{ViewExtension}";
+        private string FormatViewPath(string controllerName, string actionName) => $@"{this.ViewsFolderPath}/{controllerName}/{actionName}.{ViewExtension}";
         private string FormatDisplayTemplatePath(string objectName) => $@"{this.ViewsDisplayTemplateFolderPath}{objectName}{DisplayTemplateSuffix}.{ViewExtension}";
 
         private string ReadLayoutHtml(string layoutViewPath)
