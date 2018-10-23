@@ -21,7 +21,7 @@
         [Authorize]
         public IActionResult Authorized()
         {
-            this.Model["username"] = this.Identity.Username;
+            this.Model["username"] = this.Identity().Username;
 
             return new RedirectResult("/Home/Index");
         }
