@@ -3,8 +3,10 @@
     using Services.Contracts;
     using SIS.Framework.ActionResults;
     using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
+    using SIS.Framework.Security;
     using SIS.HTTP.Cookies;
     using SIS.HTTP.Extensions;
     using ViewModels;
@@ -62,16 +64,18 @@
             var hashPassword = this.hashService.Hash(password);
             this.userService.AddUser(username, hashPassword, email);
 
-            // Create cookie and session
-            var cookieContent = this.userCookieService.GetUserCookie(username);
-            var cookie = new HttpCookie(HttpCookie.Auth, cookieContent, 7) { HttpOnly = true };
-            this.Response.Cookies.Add(cookie);
-
-            // Login
-            this.SignInUser(username, cookieContent);
-
-            // Response
+            this.SignIn(new IdentityUser() { Username = username });
             return new RedirectResult("/");
+            //// Create cookie and session
+            //var cookieContent = this.userCookieService.GetUserCookie(username);
+            //var cookie = new HttpCookie(HttpCookie.Auth, cookieContent, 7) { HttpOnly = true };
+            //this.Response.Cookies.Add(cookie);
+
+            //// Login
+            //this.SignInUser(username, cookieContent);
+
+            //// Response
+            //return new RedirectResult("/");
         }
 
         [HttpGet]
@@ -97,10 +101,11 @@
                 return this.View();
             }
 
-            // Login
-            var userCookie = this.userCookieService.GetUserCookie(username);
-            this.SignInUser(username, userCookie);
-
+            //// Login
+            //var userCookie = this.userCookieService.GetUserCookie(username);
+            //this.SignInUser(username, userCookie);
+            this.SignIn(new IdentityUser { Username = username });
+            this.Model.Data["WelcomeUserModel"] = new WelcomeUserModel() { Username = this.Identity().Username };
             // Response
             return new RedirectResult("/");
         }
@@ -108,13 +113,15 @@
         [HttpGet]
         public IActionResult Logout()
         {
-            if (!this.Request.Session.ContainsParameter("username"))
-            {
-                return new RedirectResult("/");
-            }
-
-            this.Request.Session.ClearParameters();
+            this.SignOut();
             return new RedirectResult("/");
+            //if (!this.Request.Session.ContainsParameter("username"))
+            //{
+            //    return new RedirectResult("/");
+            //}
+
+            //this.Request.Session.ClearParameters();
+            //return new RedirectResult("/");
         }
 
         private bool IsValidModel(string username, string password, string confirmPassword)

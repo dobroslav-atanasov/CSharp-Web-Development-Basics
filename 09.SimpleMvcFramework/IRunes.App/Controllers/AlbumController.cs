@@ -5,6 +5,7 @@
     using Services.Contracts;
     using SIS.Framework.ActionResults;
     using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
     using SIS.HTTP.Extensions;
@@ -31,12 +32,13 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult All()
         {
-            if (!this.IsLoggedIn())
-            {
-                return new RedirectResult("/User/Login");
-            }
+            //if (!this.IsLoggedIn())
+            //{
+            //    return new RedirectResult("/User/Login");
+            //}
 
             var allAlbums = this.albumService.GetAllAlbums();
             var sb = new StringBuilder();
@@ -48,17 +50,24 @@
                     sb.AppendLine(albumText);
                 }
 
-                this.Model.Data[AllAlbums] = sb.ToString();
+                this.Model.Data["AlbumAllModel"] = new AlbumAllModel
+                { 
+                    Text = sb.ToString()
+                };
             }
             else
             {
-                this.Model.Data[AllAlbums] = NoAlbums;
+                this.Model.Data["AlbumAllModel"] = new AlbumAllModel
+                {
+                    Text = NoAlbums
+                };
             }
 
             return this.View();
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
             if (!this.IsLoggedIn())
@@ -71,6 +80,7 @@
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Create(AlbumCreateViewModel model)
         {
             var name = model.Name.UrlDecode();
@@ -88,6 +98,7 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Details()
         {
             if (!this.IsLoggedIn())

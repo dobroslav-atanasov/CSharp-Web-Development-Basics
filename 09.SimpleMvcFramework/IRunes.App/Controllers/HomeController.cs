@@ -3,17 +3,19 @@
     using SIS.Framework.ActionResults.Contracts;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
+    using ViewModels;
 
     public class HomeController : Controller
     {
         [HttpGet]
         public IActionResult Index()
         {
-            if (this.IsLoggedIn())
+            if (this.Identity() != null)
             {
-                var username = this.Request.Session.GetParameter("username");
-                this.Model.Data["Username"] = username;
-
+                this.Model.Data["WelcomeUserModel"] = new WelcomeUserModel
+                {
+                    Username = this.Identity().Username,
+                };
                 return this.View("Index-Logged-In");
             }
 

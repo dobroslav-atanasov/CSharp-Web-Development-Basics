@@ -14,12 +14,13 @@
     {
         public static void Main()
         {
-            var services = ConfigureServices();
+            WebHost.Start(new StartUp());
+            //var services = ConfigureServices();
 
-            var handlers = new HttpHandlerContextRouter(new ControllerRouter(services), new ResourceRouter());
-            var server = new Server(8080, handlers);
+            //var handlers = new HttpHandlerContextRouter(new ControllerRouter(services), new ResourceRouter());
+            //var server = new Server(8080, handlers);
 
-            MvcEngine.Run(server);  
+            //MvcEngine.Run(server);  
         }
 
         private static IDependencyContainer ConfigureServices()
