@@ -250,7 +250,7 @@
                 .GetCustomAttributes()
                 .Where(a => a is AuthorizeAttribute)
                 .Cast<AuthorizeAttribute>()
-                .Any(a => !a.IsAuthorized(controller.Identity)))
+                .Any(a => !a.IsAuthorized(controller.Identity())))
             {
                 return new UnauthorizedResult();
             }

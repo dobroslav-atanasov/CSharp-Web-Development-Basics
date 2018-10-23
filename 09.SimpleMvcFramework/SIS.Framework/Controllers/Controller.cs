@@ -34,10 +34,7 @@
 
         public Model ModelState { get; }
 
-        // New
-        public IIdentity Identity => (IIdentity)this.Request.Session.GetParameter(Auth);
-
-        private ViewEngine ViewEngine { get; }  = new ViewEngine();
+        private ViewEngine ViewEngine { get; } = new ViewEngine();
 
         protected IViewable View([CallerMemberName] string actionName = "")
         {
@@ -96,6 +93,17 @@
         protected void SignOut()
         {
             this.Request.Session.ClearParameters();
+        }
+
+        // New
+        public IIdentity Identity()
+        {
+            if (this.Request.Session.ContainsParameter(Auth))
+            {
+                return (IIdentity)this.Request.Session.GetParameter(Auth);
+            }
+
+            return null;
         }
     }
 }
