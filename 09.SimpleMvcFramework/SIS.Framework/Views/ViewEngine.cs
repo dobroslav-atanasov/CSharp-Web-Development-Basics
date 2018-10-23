@@ -56,7 +56,10 @@
 
         private string RenderObject(object viewObject, string displayTemplate)
         {
-            foreach (var property in viewObject.GetType().GetProperties())
+            var viewObjectType = viewObject.GetType();
+            var viewObjectProperties = viewObjectType.GetProperties();
+
+            foreach (var property in viewObjectProperties)
             {
                 displayTemplate = this.RenderViewData(displayTemplate, property.GetValue(viewObject), property.Name);
             }
@@ -66,40 +69,43 @@
 
         private string RenderViewData(string template, object viewObject, string viewObjectName = null)
         {
-            if (viewObject != null 
-                && viewObject.GetType() != typeof(string) 
-                && viewObject is IEnumerable enumerable 
-                && Regex.IsMatch(template, ModelCollectionViewParameterPattern))
+            if (viewObject != null &&
+                viewObject.GetType() != typeof(string) &&
+                viewObject is IEnumerable collectionProperty &&
+                Regex.IsMatch(template, ModelCollectionViewParameterPattern))
             {
-                var matchCollection = Regex.Matches(template, ModelCollectionViewParameterPattern)
-                    .First(mc => mc.Groups[1].Value == viewObjectName);
+                Match collectionMatch = Regex.Matches(template, ModelCollectionViewParameterPattern).First(m => m.Groups[1].Value == viewObjectName);
 
-                var fullMatch = matchCollection.Groups[0].Value;
-                var itemPattern = matchCollection.Groups[2].Value;
-                var result = string.Empty;
+                var fullMatch = collectionMatch.Groups[0].Value;
+                var itemPattern = collectionMatch.Groups[2].Value;
 
-                foreach (var subObject in enumerable)
+                string result = string.Empty;
+
+                foreach (var element in collectionProperty)
                 {
-                    result += itemPattern.Replace("@Item", this.RenderViewData(template, subObject));
+                    result += itemPattern.Replace("@Item", this.RenderViewData(template, element));
                 }
 
                 return template.Replace(fullMatch, result);
             }
 
-            if (viewObject != null
-                && !viewObject.GetType().IsPrimitive
-                && viewObject.GetType() != typeof(string))
+            if (viewObject != null &&
+                !viewObject.GetType().IsPrimitive &&
+                viewObject.GetType() != typeof(string))
             {
-                if (File.Exists(this.FormatDisplayTemplatePath(viewObject.GetType().Name)))
+                var objectDisplayTemplate = this.FormatDisplayTemplatePath(viewObject.GetType().Name);
+                if (File.Exists(objectDisplayTemplate))
                 {
-                    var renderedObject = this.RenderObject(viewObject, File.ReadAllText(this.FormatDisplayTemplatePath(viewObject.GetType().Name)));
+                    string renderedObject = this.RenderObject(viewObject, File.ReadAllText(objectDisplayTemplate));
 
-                    return viewObjectName != null ? template.Replace($"@Model.{viewObjectName}", renderedObject) : renderedObject;
+                    return viewObjectName != null
+                        ? template.Replace($"@Model.{viewObjectName}", renderedObject)
+                        : renderedObject;
                 }
             }
 
             return viewObjectName != null
-                ? template.Replace($"@Model.{viewObject}", viewObject?.ToString())
+                ? template.Replace($"@Model.{viewObjectName}", viewObject?.ToString())
                 : viewObject?.ToString();
         }
 
@@ -111,8 +117,10 @@
 
         public string GetViewContent(string controllerName, string actionName)
         {
-            return this.ReadLayoutHtml(this.FormatLayoutViewPath()).Replace("@RenderBody()",
-                this.ReadViewHtml(this.FormatViewPath(controllerName, actionName)));
+            var html = this.ReadLayoutHtml(this.FormatLayoutViewPath())
+                .Replace("@RenderBody()", this.ReadViewHtml(this.FormatViewPath(controllerName, actionName)));
+
+            return html;
         }
 
         public string RenderHtml(string fullHtmlContent, IDictionary<string, object> viewData)
