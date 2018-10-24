@@ -12,10 +12,11 @@
         {
             if (this.Identity() != null)
             {
-                this.Model.Data["WelcomeUserModel"] = new WelcomeUserModel
+                this.Model.Data["UserViewModel"] = new UserViewModel
                 {
                     Username = this.Identity().Username,
                 };
+
                 return this.View("Index-Logged-In");
             }
 

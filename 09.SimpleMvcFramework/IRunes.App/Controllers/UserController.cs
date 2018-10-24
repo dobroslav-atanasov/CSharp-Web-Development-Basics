@@ -15,8 +15,6 @@
     {
         private const string None = "none";
         private const string Inline = "inline";
-        private const string DisplayError = "DisplayError";
-        private const string ErrorMessage = "ErrorMessage";
         private const string InvalidRegistrationData = "Invalid registration data!";
         private const string UsernameExists = "Username exists!";
         private const string InvalidLoginData = "Invalid username or password!";
@@ -35,7 +33,11 @@
         [HttpGet]
         public IActionResult Register()
         {
-            this.Model.Data[DisplayError] = None;
+            this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+            {
+                DisplayError = None
+            };
+
             return this.View();
         }
 
@@ -49,15 +51,21 @@
 
             if (!this.IsValidModel(username, password, confirmPassword))
             {
-                this.Model.Data[DisplayError] = Inline;
-                this.Model.Data[ErrorMessage] = InvalidRegistrationData;
+                this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+                {
+                    DisplayError = Inline,
+                    ErrorMessage = InvalidRegistrationData
+                };
                 return this.View();
             }
 
             if (this.userService.ContainsUser(username))
             {
-                this.Model.Data[DisplayError] = Inline;
-                this.Model.Data[ErrorMessage] = UsernameExists;
+                this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+                {
+                    DisplayError = Inline,
+                    ErrorMessage = UsernameExists
+                };
                 return this.View();
             }
 
@@ -81,7 +89,11 @@
         [HttpGet]
         public IActionResult Login()
         {
-            this.Model.Data[DisplayError] = None;
+            this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+            {
+                DisplayError = None
+            };
+
             return this.View();
         }
 
@@ -96,8 +108,11 @@
 
             if (user == null)
             {
-                this.Model.Data[DisplayError] = Inline;
-                this.Model.Data[ErrorMessage] = InvalidLoginData;
+                this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+                {
+                    DisplayError = Inline,
+                    ErrorMessage = InvalidLoginData
+                };
                 return this.View();
             }
 
@@ -105,7 +120,11 @@
             //var userCookie = this.userCookieService.GetUserCookie(username);
             //this.SignInUser(username, userCookie);
             this.SignIn(new IdentityUser { Username = username });
-            this.Model.Data["WelcomeUserModel"] = new WelcomeUserModel() { Username = this.Identity().Username };
+            //this.Model.Data["WelcomeUserModel"] = new WelcomeUserModel() { Username = this.Identity().Username };
+            //this.Model.Data["UserViewModel"] = new UserViewModel
+            //{
+            //    Username = this.Identity().Username
+            //};
             // Response
             return new RedirectResult("/");
         }
