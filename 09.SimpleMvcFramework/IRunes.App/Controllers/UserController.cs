@@ -21,13 +21,11 @@
 
         private readonly IUserService userService;
         private readonly IHashService hashService;
-        private readonly IUserCookieService userCookieService;
 
-        public UserController(IUserService userService, IHashService hashService, IUserCookieService userCookieService)
+        public UserController(IUserService userService, IHashService hashService)
         {
             this.userService = userService;
             this.hashService = hashService;
-            this.userCookieService = userCookieService;
         }
 
         [HttpGet]
@@ -74,16 +72,6 @@
 
             this.SignIn(new IdentityUser() { Username = username });
             return new RedirectResult("/");
-            //// Create cookie and session
-            //var cookieContent = this.userCookieService.GetUserCookie(username);
-            //var cookie = new HttpCookie(HttpCookie.Auth, cookieContent, 7) { HttpOnly = true };
-            //this.Response.Cookies.Add(cookie);
-
-            //// Login
-            //this.SignInUser(username, cookieContent);
-
-            //// Response
-            //return new RedirectResult("/");
         }
 
         [HttpGet]
@@ -116,16 +104,7 @@
                 return this.View();
             }
 
-            //// Login
-            //var userCookie = this.userCookieService.GetUserCookie(username);
-            //this.SignInUser(username, userCookie);
             this.SignIn(new IdentityUser { Username = username });
-            //this.Model.Data["WelcomeUserModel"] = new WelcomeUserModel() { Username = this.Identity().Username };
-            //this.Model.Data["UserViewModel"] = new UserViewModel
-            //{
-            //    Username = this.Identity().Username
-            //};
-            // Response
             return new RedirectResult("/");
         }
 
@@ -134,13 +113,6 @@
         {
             this.SignOut();
             return new RedirectResult("/");
-            //if (!this.Request.Session.ContainsParameter("username"))
-            //{
-            //    return new RedirectResult("/");
-            //}
-
-            //this.Request.Session.ClearParameters();
-            //return new RedirectResult("/");
         }
 
         private bool IsValidModel(string username, string password, string confirmPassword)

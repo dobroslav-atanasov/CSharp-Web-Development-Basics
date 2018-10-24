@@ -1,0 +1,27 @@
+﻿<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-4">
+        <div style="text-align: center">
+            <img src="@Model.Cover" alt="@Model.Name" class="img-fluid" width="300" height="300">
+        </div>
+        <div style="text-align: center">
+            <h4 class="text-dark">Album Name: @Model.Name</h4>
+        </div>
+        <div style="text-align: center">
+            <h4 class="text-dark">Price: @Model.Price</h4>
+        </div>
+        <div style="text-align: center">
+            <a class="btn btn-warning" href="/Track/Create?albumId=@Model.ModelId" role="button">Create Track</a>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4">
+        <div style="text-align: center">
+            <h4 class="text-dark">Tracks</h4>
+        </div>
+        <div style="text-align: center">
+            @Model.AllTracks
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+</div>

@@ -15,9 +15,6 @@
     {
         private const string None = "none";
         private const string Inline = "inline";
-        private const string DisplayError = "DisplayError";
-        private const string ErrorMessage = "ErrorMessage";
-        private const string AllAlbums = "AllAlbums";
         private const string NoAlbums = "There are currently no albums.";
         private const string AlbumNameExists = "Album name already exists!";
         private const string NoTracks = "There are currently no tracks.";
@@ -35,11 +32,6 @@
         [Authorize]
         public IActionResult All()
         {
-            //if (!this.IsLoggedIn())
-            //{
-            //    return new RedirectResult("/User/Login");
-            //}
-
             var allAlbums = this.albumService.GetAllAlbums();
             var sb = new StringBuilder();
             if (allAlbums.Any())
@@ -49,20 +41,16 @@
                     var albumText = $@"<div><h4><a href=/Album/Details?id={album.Id}>{album.Name}</a></h4></div><br/>";
                     sb.AppendLine(albumText);
                 }
-
-                this.Model.Data["AlbumAllModel"] = new AlbumAllModel
-                { 
-                    Text = sb.ToString()
-                };
             }
             else
             {
-                this.Model.Data["AlbumAllModel"] = new AlbumAllModel
-                {
-                    Text = NoAlbums
-                };
+                sb.Append(NoAlbums);
             }
 
+            this.Model.Data["AlbumAllViewModel"] = new AlbumAllViewModel
+            {
+                AllAlbums = sb.ToString()
+            };
             return this.View();
         }
 
@@ -70,12 +58,11 @@
         [Authorize]
         public IActionResult Create()
         {
-            if (!this.IsLoggedIn())
+            this.Model.Data["ErrorViewModel"] = new ErrorViewModel
             {
-                return new RedirectResult("/User/Login");
-            }
+                DisplayError = None
+            };
 
-            this.Model.Data[DisplayError] = None;
             return this.View();
         }
 
@@ -88,8 +75,11 @@
 
             if (this.albumService.ContainsAlbum(name))
             {
-                this.Model.Data[DisplayError] = Inline;
-                this.Model.Data[ErrorMessage] = AlbumNameExists;
+                this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+                {
+                    DisplayError = Inline,
+                    ErrorMessage = AlbumNameExists
+                };
                 return this.View();
             }
 
@@ -101,11 +91,6 @@
         [Authorize]
         public IActionResult Details()
         {
-            if (!this.IsLoggedIn())
-            {
-                return new RedirectResult("/User/Login");
-            }
-
             if (!this.Request.QueryData.ContainsKey("id"))
             {
                 return new RedirectResult("/Album/All");
@@ -119,11 +104,6 @@
                 return new RedirectResult("/Album/All");
             }
 
-            this.Model.Data["Cover"] = album.Cover;
-            this.Model.Data["Name"] = album.Name;
-            this.Model.Data["Price"] = $"${this.albumService.GetTotalPrice(id):F2}";
-            this.Model.Data["AlbumId"] = id;
-
             var allTracks = this.trackService.GetAllTracks(id);
             var sb = new StringBuilder();
             if (allTracks.Any())
@@ -134,12 +114,20 @@
                     sb.AppendLine($"<li><div><a href=/Track/Details?albumId={id}&trackId={track.Id}>{track.Name}</a></div></li>");
                 }
                 sb.Append("</ol>");
-                this.Model.Data["AllTracks"] = sb.ToString();
             }
             else
             {
-                this.Model.Data["AllTracks"] = NoTracks;
+                sb.Append(NoTracks);
             }
+
+            this.Model.Data["AlbumDetailsViewModel"] = new AlbumDetailsViewModel
+            {
+                Cover = album.Cover,
+                Name = album.Name,
+                Price = $"${this.albumService.GetTotalPrice(id):F2}",
+                AlbumId = id,
+                AllTracks = sb.ToString()
+            };
 
             return this.View();
         }
