@@ -10,6 +10,7 @@
     using SIS.HTTP.Cookies;
     using SIS.HTTP.Extensions;
     using ViewModels;
+    using ViewModels.Users;
 
     public class UserController : Controller
     {

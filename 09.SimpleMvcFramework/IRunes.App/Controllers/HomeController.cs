@@ -4,6 +4,7 @@
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
     using ViewModels;
+    using ViewModels.Users;
 
     public class HomeController : Controller
     {

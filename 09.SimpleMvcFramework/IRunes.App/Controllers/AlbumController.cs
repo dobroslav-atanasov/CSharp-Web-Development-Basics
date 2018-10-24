@@ -10,6 +10,7 @@
     using SIS.Framework.Controllers;
     using SIS.HTTP.Extensions;
     using ViewModels;
+    using ViewModels.Albums;
 
     public class AlbumController : Controller
     {

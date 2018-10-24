@@ -3,17 +3,17 @@
     using Services.Contracts;
     using SIS.Framework.ActionResults;
     using SIS.Framework.ActionResults.Contracts;
+    using SIS.Framework.Attributes.Action;
     using SIS.Framework.Attributes.Methods;
     using SIS.Framework.Controllers;
     using SIS.HTTP.Extensions;
     using ViewModels;
+    using ViewModels.Tracks;
 
     public class TrackController : Controller
     {
         private const string None = "none";
         private const string Inline = "inline";
-        private const string DisplayError = "DisplayError";
-        private const string ErrorMessage = "ErrorMessage";
         private const string TrackAlreadyExists = "Track already exists!";
 
         private readonly ITrackService trackService;
@@ -26,13 +26,9 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Create()
         {
-            if (!this.IsLoggedIn())
-            {
-                return new RedirectResult("/User/Login");
-            }
-
             if (!this.Request.QueryData.ContainsKey("albumId"))
             {
                 return new RedirectResult("/Album/All");
@@ -45,21 +41,16 @@
                 return new RedirectResult("/Album/All");
             }
 
-            this.Model.Data[DisplayError] = None;
-            this.Model.Data["AlbumId"] = albumId;
-            this.Model.Data["Action"] = $"/Track/Create?albumId={albumId}";
+            this.Model.Data["ErrorViewModel"] = new ErrorViewModel { DisplayError = None };
+            this.Model.Data["TrackCreateViewModel"] = new TrackCreateViewModel { AlbumId = albumId };
 
             return this.View();
         }
 
         [HttpPost]
-        public IActionResult Create(TrackCreateViewModel model)
+        [Authorize]
+        public IActionResult Create(TrackViewModel model)
         {
-            if (!this.IsLoggedIn())
-            {
-                return new RedirectResult("/User/Login");
-            }
-
             if (!this.Request.QueryData.ContainsKey("albumId"))
             {
                 return new RedirectResult("/Album/All");
@@ -78,8 +69,11 @@
 
             if (this.trackService.ContainsTrack(name))
             {
-                this.Model.Data[DisplayError] = Inline;
-                this.Model.Data[ErrorMessage] = TrackAlreadyExists;
+                this.Model.Data["ErrorViewModel"] = new ErrorViewModel
+                {
+                    DisplayError = Inline,
+                    ErrorMessage = TrackAlreadyExists
+                };
                 return this.View();
             }
 
@@ -89,13 +83,9 @@
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Details()
         {
-            if (!this.IsLoggedIn())
-            {
-                return new RedirectResult("/User/Login");
-            }
-
             if (!this.Request.QueryData.ContainsKey("albumId") || !this.Request.QueryData.ContainsKey("trackId"))
             {
                 return new RedirectResult("/Album/All");
@@ -117,10 +107,13 @@
                 return new RedirectResult($"/Album/Details?id={albumId}");
             }
 
-            this.Model.Data["Name"] = track.Name;
-            this.Model.Data["Price"] = track.Price;
-            this.Model.Data["AlbumId"] = albumId;
-            this.Model.Data["Link"] = track.Link;
+            this.Model.Data["TrackDetailsViewModel"] = new TrackDetailsViewModel
+            {
+                Name = track.Name,
+                Price = $"${track.Price:F2}",
+                AlbumId = albumId,
+                Link = track.Link
+            };
 
             return this.View();
         }
