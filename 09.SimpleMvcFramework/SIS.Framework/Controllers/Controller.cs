@@ -55,34 +55,9 @@
             return new ViewResult(new View(renderedContent));
         }
 
-        // Old
-        //protected IViewable View([CallerMemberName] string caller = "")
-        //{
-        //    var controllerName = ControllerUtilities.GetControllerName(this);
-
-        //    var fullyQualifiedName = ControllerUtilities.GetViewFullQualifiedName(controllerName, caller);
-
-        //    var view = new View(fullyQualifiedName, this.Model.Data);
-
-        //    return new ViewResult(view);
-        //}
-
         protected IRedirectable RedirectToAction(string redirectUrl)
         {
             return new RedirectResult(redirectUrl);
-        }
-
-        // Old method
-        protected bool IsLoggedIn()
-        {
-            return this.Request.Session.ContainsParameter("username");
-        }
-
-        // Old method
-        protected void SignInUser(string username, string userCookie)
-        {
-            this.Request.Session.AddParameter("username", username);
-            this.Response.Cookies.Add(new HttpCookie(HttpCookie.Auth, userCookie));
         }
 
         protected void SignIn(IIdentity auth)
@@ -95,7 +70,6 @@
             this.Request.Session.ClearParameters();
         }
 
-        // New
         public IIdentity Identity()
         {
             if (this.Request.Session.ContainsParameter(Auth))
