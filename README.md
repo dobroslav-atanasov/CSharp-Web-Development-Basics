@@ -32,3 +32,9 @@ SoftUni course C# Web Development - Basics - September 2018: All tasks with thei
 7	|Databases EF Core									|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[IRunes](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/07.DatabasesEFCore-Exercises)						|![Progress](http://progressed.io/bar/100?title=completed)
 8	|Bootstrap											|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[IRunes](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/08.Bootstrap-IRunes)								|![Progress](http://progressed.io/bar/100?title=completed)
 9	|Simple MVC Framework								|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources)			|[MVC Framework](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/09.SimpleMvcFramework)						|![Progress](http://progressed.io/bar/100?title=completed)
+
+> **Exams**
+
+Exams				|Date				|Descriptions																																|Solutions
+--------------------|:-----------------:|:-----------------------------------------------------------------------------------------------------------------------------------------:|:----------:
+Torshia				|05 September 2018	|[Description]	|[Solution](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Exam-Torshia)
