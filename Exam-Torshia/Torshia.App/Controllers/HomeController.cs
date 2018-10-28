@@ -86,8 +86,8 @@
                         sb.AppendLine($"<h6 class=\"task-title text-white text-center my-4\">Level: {this.taskService.GetTaskLevel(selectedTasks[col].Id)}</h6>");
                         sb.AppendLine($"<hr class=\"bg-white hr-2 w-75\">");
                         sb.AppendLine($"<div class=\"follow-button-holder d-flex justify-content-between w-50 mx-auto mt-4\">");
-                        sb.AppendLine($"<a href=\"/Tasks/Report\"><h6 class=\"text-center text-white\">Report</h6></a>");
-                        sb.AppendLine($"<a href=\"/Tasks/Details\"><h6 class=\"text-center text-white\">Details</h6></a>");
+                        sb.AppendLine($"<a href=\"/Tasks/Report/?id={selectedTasks[col].Id}\"><h6 class=\"text-center text-white\">Report</h6></a>");
+                        sb.AppendLine($"<a href=\"/Tasks/Details/?id={selectedTasks[col].Id}\"><h6 class=\"text-center text-white\">Details</h6></a>");
                         sb.AppendLine($"</div>");
                         sb.AppendLine($"</div>");
                     }
@@ -102,8 +102,8 @@
                         sb.AppendLine($"<h6 class=\"task-title text-white text-center my-4\">Level: {this.taskService.GetTaskLevel(selectedTasks[col].Id)}</h6>");
                         sb.AppendLine($"<hr class=\"bg-white hr-2 w-75\">");
                         sb.AppendLine($"<div class=\"follow-button-holder d-flex justify-content-between w-50 mx-auto mt-4\">");
-                        sb.AppendLine($"<a href=\"/Tasks/Report\" ><h6 class=\"text-center text-white\">Report</h6></a>");
-                        sb.AppendLine($"<a href=\"/Tasks/Details\"><h6 class=\"text-center text-white\">Details</h6></a>");
+                        sb.AppendLine($"<a href=\"/Tasks/Report/?id={selectedTasks[col].Id}\" ><h6 class=\"text-center text-white\">Report</h6></a>");
+                        sb.AppendLine($"<a href=\"/Tasks/Details/?id={selectedTasks[col].Id}\"><h6 class=\"text-center text-white\">Details</h6></a>");
                         sb.AppendLine($"</div>");
                         sb.AppendLine($"</div>");
                     }

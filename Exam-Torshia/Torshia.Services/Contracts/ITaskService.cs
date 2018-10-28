@@ -16,6 +16,8 @@
 
         void ChangeIsReported(int taskId);
 
+        Task GetTask(int taskId);
+
         List<Task> GetAllNonReportedTasks();
     }
 }

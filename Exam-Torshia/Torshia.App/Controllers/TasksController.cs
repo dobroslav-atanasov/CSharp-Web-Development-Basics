@@ -60,10 +60,30 @@
         }
 
         [HttpGet]
-        [Authorize("Admin")]
         public IActionResult Details()
         {
+            int taskId = int.Parse(this.Request.QueryData["id"].ToString());
+            var task = this.taskService.GetTask(taskId);
+
+            this.Model.Data["TaskDetails"] = new TaskDetails()
+            {
+                Title = task.Title,
+                Level = this.taskService.GetTaskLevel(taskId),
+                DueDate = task.DueDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Participants = task.Participants,
+                AffectedSectors = this.taskService.GetAllAffectedSectors(taskId),
+                Description = task.Description
+            };
+
             return this.View();
+        }
+
+        [HttpGet]
+        public IActionResult Report()
+        {
+            var taskId = int.Parse(this.Request.QueryData["id"].ToString());
+            this.taskService.ChangeIsReported(taskId);
+            return  new RedirectResult("/");
         }
 
         private Status GenerateStatus()

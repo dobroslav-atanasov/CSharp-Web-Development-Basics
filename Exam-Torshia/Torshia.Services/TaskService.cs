@@ -97,6 +97,16 @@
             }
         }
 
+        public Task GetTask(int taskId)
+        {
+            using (var db = new TorshiaDbContext())
+            {
+                var task = db.Tasks.FirstOrDefault(t => t.Id == taskId);
+
+                return task;
+            }
+        }
+
         public List<Task> GetAllNonReportedTasks()
         {
             using (var db = new TorshiaDbContext())
