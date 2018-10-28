@@ -1,6 +1,7 @@
 ﻿namespace Torshia.Services.Contracts
 {
     using System;
+    using System.Collections.Generic;
     using Models;
 
     public interface ITaskService
@@ -12,5 +13,9 @@
         int GetTaskLevel(int taskId);
 
         string GetAllAffectedSectors(int taskId);
+
+        void ChangeIsReported(int taskId);
+
+        List<Task> GetAllNonReportedTasks();
     }
 }

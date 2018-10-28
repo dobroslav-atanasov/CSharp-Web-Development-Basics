@@ -29,7 +29,6 @@
         [HttpPost]
         public IActionResult Register(RegisterUserViewModel model)
         {
-            // TODO: Validation
             if (model.Password != model.ConfirmPassword)
             {
                 return this.View();
@@ -61,7 +60,6 @@
         [HttpPost]
         public IActionResult Login(LoginUserViewModel model)
         {
-            // TODO: Validation
             var username = model.Username.UrlDecode();
             var password = model.Password.UrlDecode();
 

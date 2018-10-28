@@ -84,5 +84,29 @@
                 return string.Join(", ", taskSectors);
             }
         }
+
+        public void ChangeIsReported(int taskId)
+        {
+            using (var db = new TorshiaDbContext())
+            {
+                var task = db.Tasks.FirstOrDefault(t => t.Id == taskId);
+
+                task.IsReported = true;
+
+                db.SaveChanges();
+            }
+        }
+
+        public List<Task> GetAllNonReportedTasks()
+        {
+            using (var db = new TorshiaDbContext())
+            {
+                var tasks = db.Tasks
+                    .Where(t => t.IsReported == false)
+                    .ToList();
+
+                return tasks;
+            }
+        }
     }
 }
