@@ -37,5 +37,5 @@ SoftUni course C# Web Development - Basics - September 2018: All tasks with thei
 
 Exams				|Date				|Descriptions																																|Solutions
 --------------------|:-----------------:|:-----------------------------------------------------------------------------------------------------------------------------------------:|:----------:
-Mish Mash			|28 August 2018		|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources/Exam-MishMash)						|[Solution]
+Mish Mash			|28 August 2018		|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources/Exam-MishMash)						|[Solution](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Exam-MishMash)
 Torshia				|05 September 2018	|[Description](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Resources/Exam-Torshia)						|[Solution](https://github.com/dobroslav-atanasov/CSharp-Web-Development-Basics/tree/master/Exam-Torshia)
