@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MishMash.App
+﻿namespace MishMash.App
 {
-    class StartUp
+    using SIS.Framework.Api;
+    using SIS.Framework.Services;
+
+    public class StartUp : MvcApplication
     {
+        public override void ConfigureServices(IDependencyContainer dependencyContainer)
+        {
+
+        }
     }
 }
