@@ -1,8 +1,8 @@
-﻿using Torshia.Models;
-using Torshia.Models.Enums;
-
-namespace Torshia.Services.Contracts
+﻿namespace Torshia.Services.Contracts
 {
+    using Models;
+    using Models.Enums;
+
     public interface IUserService
     {
         void AddUser(string username, string password, string email, Role role);
