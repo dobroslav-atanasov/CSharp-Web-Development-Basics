@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishMash.App", "MishMash.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishMash.Models", "MishMash.Models\MishMash.Models.csproj", "{77F348C2-30E4-4DF7-ACB0-CB279F041D10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MishMash.Data", "MishMash.Data\MishMash.Data.csproj", "{37C1954D-28C1-469F-8A18-9E91F91D15D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{77F348C2-30E4-4DF7-ACB0-CB279F041D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77F348C2-30E4-4DF7-ACB0-CB279F041D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77F348C2-30E4-4DF7-ACB0-CB279F041D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37C1954D-28C1-469F-8A18-9E91F91D15D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C1954D-28C1-469F-8A18-9E91F91D15D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C1954D-28C1-469F-8A18-9E91F91D15D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C1954D-28C1-469F-8A18-9E91F91D15D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F0B5C515-DC14-4906-B129-E84C73EA13AC} = {05F4B3FD-1AA6-4ABC-8401-9A8B19F1300C}
 		{77F348C2-30E4-4DF7-ACB0-CB279F041D10} = {05F4B3FD-1AA6-4ABC-8401-9A8B19F1300C}
+		{37C1954D-28C1-469F-8A18-9E91F91D15D0} = {05F4B3FD-1AA6-4ABC-8401-9A8B19F1300C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7DDABD09-DCFC-4DD2-996C-EDD241D1D1F0}
