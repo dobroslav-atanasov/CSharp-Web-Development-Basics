@@ -27,7 +27,14 @@
 
         public User GetUser(string username)
         {
-            throw new System.NotImplementedException();
+            using (var db = new TorshiaDbContext())
+            {
+                var user = db
+                    .Users
+                    .FirstOrDefault(u => u.Username == username);
+
+                return user;
+            }
         }
 
         public User GetUser(string username, string password)

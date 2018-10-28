@@ -1,5 +1,6 @@
 ﻿namespace Torshia.Data
 {
+    using EntityConfig;
     using Microsoft.EntityFrameworkCore;
     using Models;
 
@@ -20,7 +21,13 @@
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(Configuration.ConnectionString);
-            optionsBuilder.UseLazyLoadingProxies();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ReportConfig());
+
+            modelBuilder.ApplyConfiguration(new TaskSectorConfig());
         }
     }
 }

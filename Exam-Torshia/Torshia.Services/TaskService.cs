@@ -1,7 +1,9 @@
-﻿namespace Torshia.Services.Contracts
+﻿namespace Torshia.Services
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Contracts;
     using Data;
     using Models;
     using Models.Enums;
@@ -54,6 +56,18 @@
                         db.SaveChanges();
                     }
                 }
+            }
+        }
+
+        public int GetTaskLevel(int taskId)
+        {
+            using (var db = new TorshiaDbContext())
+            {
+                var level = db.TaskSectors
+                    .Where(t => t.TaskId == taskId)
+                    .Count();
+
+                return level;
             }
         }
     }

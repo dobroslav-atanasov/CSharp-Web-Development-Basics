@@ -102,14 +102,14 @@ namespace Torshia.Data.Migrations
             modelBuilder.Entity("Torshia.Models.Report", b =>
                 {
                     b.HasOne("Torshia.Models.User", "Reporter")
-                        .WithMany()
+                        .WithMany("Reports")
                         .HasForeignKey("ReporterId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Torshia.Models.Task", "Task")
-                        .WithMany()
+                        .WithMany("Reports")
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Torshia.Models.TaskSector", b =>
@@ -117,7 +117,7 @@ namespace Torshia.Data.Migrations
                     b.HasOne("Torshia.Models.Task", "Task")
                         .WithMany("AffectedSectors")
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

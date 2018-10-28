@@ -13,10 +13,11 @@
             dependencyContainer.RegisterDependency<HomeController, HomeController>();
             dependencyContainer.RegisterDependency<UsersController, UsersController>();
             dependencyContainer.RegisterDependency<TasksController, TasksController>();
-            dependencyContainer.RegisterDependency<ReportersController, ReportersController>();
+            dependencyContainer.RegisterDependency<ReportsController, ReportsController>();
 
             dependencyContainer.RegisterDependency<IUserService, UserService>();
             dependencyContainer.RegisterDependency<ITaskService, TaskService>();
+            dependencyContainer.RegisterDependency<IReportService, ReportService>();
         }
     }
 }

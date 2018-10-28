@@ -10,7 +10,7 @@ using Torshia.Data;
 namespace Torshia.Data.Migrations
 {
     [DbContext(typeof(TorshiaDbContext))]
-    [Migration("20181025192753_Initial")]
+    [Migration("20181028101157_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,14 +104,14 @@ namespace Torshia.Data.Migrations
             modelBuilder.Entity("Torshia.Models.Report", b =>
                 {
                     b.HasOne("Torshia.Models.User", "Reporter")
-                        .WithMany()
+                        .WithMany("Reports")
                         .HasForeignKey("ReporterId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Torshia.Models.Task", "Task")
-                        .WithMany()
+                        .WithMany("Reports")
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Torshia.Models.TaskSector", b =>
@@ -119,7 +119,7 @@ namespace Torshia.Data.Migrations
                     b.HasOne("Torshia.Models.Task", "Task")
                         .WithMany("AffectedSectors")
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
