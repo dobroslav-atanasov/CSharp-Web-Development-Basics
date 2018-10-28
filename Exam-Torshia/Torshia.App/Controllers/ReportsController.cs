@@ -1,5 +1,6 @@
 ﻿namespace Torshia.App.Controllers
 {
+    using System.Globalization;
     using System.Linq;
     using System.Text;
     using Services.Contracts;
@@ -49,11 +50,37 @@
                 index++;
             }
 
-            var str = sb.ToString();
-
             this.Model.Data["ReportAll"] = new ReportAll
             {
                 Report = sb.ToString()
+            };
+
+            return this.View();
+        }
+
+        [HttpGet]
+        public IActionResult Details()
+        {
+            if (!this.Identity.Roles.ToList().Contains("Admin"))
+            {
+                return new RedirectResult("/");
+            }
+
+            var id = int.Parse(this.Request.QueryData["id"].ToString());
+            var report = this.reportService.GetReport(id);
+
+            this.Model.Data["DetailsReport"] = new DetailsReport
+            {
+                Id = report.Id,
+                Task = report.Task.Title,
+                Level = this.taskService.GetTaskLevel(report.TaskId),
+                Status = report.Status.ToString(),
+                DueDate = report.Task.DueDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                ReportedOn = report.ReportedOn.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Reporter = report.Reporter.Username,
+                Participants = report.Task.Participants,
+                AffectedSectors = this.taskService.GetAllAffectedSectors(report.TaskId),
+                Description = report.Task.Description
             };
 
             return this.View();

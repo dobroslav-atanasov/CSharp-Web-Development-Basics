@@ -10,5 +10,7 @@
         void AddTaskSectors(string sectorCustomers, string sectorMarketing, string sectorFinances, string sectorInternal, string sectorManagement, int taskId);
 
         int GetTaskLevel(int taskId);
+
+        string GetAllAffectedSectors(int taskId);
     }
 }

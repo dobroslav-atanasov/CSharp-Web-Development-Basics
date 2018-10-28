@@ -9,7 +9,7 @@
     {
         void AddReport(DateTime date, Status status, int taskId, int userId);
 
-        Report GetReport();
+        Report GetReport(int id);
 
         List<Report> GetAllReports();
     }

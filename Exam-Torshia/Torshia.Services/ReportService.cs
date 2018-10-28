@@ -28,13 +28,15 @@
             }
         }
 
-        public Report GetReport()
+        public Report GetReport(int id)
         {
             using (var db = new TorshiaDbContext())
             {
                 return db.Reports
+                    .Where(r => r.Id == id)
                     .Include(r => r.Task)
-                    .First();
+                    .Include(r => r.Reporter)
+                    .FirstOrDefault();
             }
         }
 

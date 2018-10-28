@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using Contracts;
     using Data;
     using Models;
@@ -68,6 +69,19 @@
                     .Count();
 
                 return level;
+            }
+        }
+
+        public string GetAllAffectedSectors(int taskId)
+        {
+            using (var db = new TorshiaDbContext())
+            {
+                var taskSectors = db.TaskSectors
+                    .Where(ts => ts.TaskId == taskId)
+                    .Select(ts => ts.Sector.ToString())
+                    .ToList();
+
+                return string.Join(", ", taskSectors);
             }
         }
     }
