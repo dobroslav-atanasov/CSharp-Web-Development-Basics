@@ -13,13 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIS.Demo", "SIS.Demo\SIS.De
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{D7EAC1A4-8064-4072-B327-BC7E905103B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torshia.App", "Torshia.App\Torshia.App.csproj", "{EA04D797-4CCD-4DA8-B402-895A0BDA041E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torshia.App", "Torshia.App\Torshia.App.csproj", "{EA04D797-4CCD-4DA8-B402-895A0BDA041E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torshia.Data", "Torshia.Data\Torshia.Data.csproj", "{20379631-AAA7-482C-8433-C3B5460F2CDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torshia.Data", "Torshia.Data\Torshia.Data.csproj", "{20379631-AAA7-482C-8433-C3B5460F2CDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torshia.Models", "Torshia.Models\Torshia.Models.csproj", "{41E7ED3D-4329-44DE-BBB0-2CD5C2E8C233}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torshia.Models", "Torshia.Models\Torshia.Models.csproj", "{41E7ED3D-4329-44DE-BBB0-2CD5C2E8C233}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Torshia.Services", "Torshia.Services\Torshia.Services.csproj", "{E9A494C2-2692-40CE-BE3E-A91268BF8EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torshia.Services", "Torshia.Services\Torshia.Services.csproj", "{E9A494C2-2692-40CE-BE3E-A91268BF8EDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
