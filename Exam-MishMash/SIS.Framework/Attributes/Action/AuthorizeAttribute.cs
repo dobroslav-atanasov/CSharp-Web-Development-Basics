@@ -1,9 +1,9 @@
-﻿using System;
-using System.Linq;
-using SIS.Framework.Security;
-
-namespace SIS.Framework.Attributes.Action
+﻿namespace SIS.Framework.Attributes.Action
 {
+    using System;
+    using System.Linq;
+    using Security;
+
     public class AuthorizeAttribute : Attribute
     {
         private readonly string[] roles;
@@ -15,7 +15,10 @@ namespace SIS.Framework.Attributes.Action
                 : inputRoles.Select(r => r.ToLower()).ToArray();
         }
 
-        public AuthorizeAttribute() { }
+        public AuthorizeAttribute()
+        {
+            this.roles = new string[0];
+        }
         
         public AuthorizeAttribute(params string[] roles)
         {
