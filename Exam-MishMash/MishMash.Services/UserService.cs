@@ -40,5 +40,16 @@
                 return db.Users.Any();
             }
         }
+
+        public User GetUser(string username, string password)
+        {
+            using (var db = new MishMashDbContext())
+            {
+                var user = db.Users
+                    .FirstOrDefault(u => u.Username == username && u.Password == password);
+
+                return user;
+            }
+        }
     }
 }
