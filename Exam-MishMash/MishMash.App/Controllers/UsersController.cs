@@ -9,6 +9,7 @@
     using SIS.Framework.Attributes.Method;
     using SIS.Framework.Controllers;
     using SIS.Framework.Security;
+    using ViewModels.Errors;
     using ViewModels.Users;
 
     public class UsersController : Controller
@@ -23,6 +24,7 @@
         [HttpGet]
         public IActionResult Register()
         {
+            this.Model.Data["DisplayError"] = new DisplayError { Display = "none" };
             return this.View();
         }
 
@@ -37,11 +39,13 @@
 
             if (password != confirmPassword)
             {
+                this.Model.Data["DisplayError"] = new DisplayError { Display = "block", Message = "Passwords does not match!"};
                 return this.View();
             }
 
             if (this.userService.IsUserExists(username))
             {
+                this.Model.Data["DisplayError"] = new DisplayError { Display = "block", Message = "Username already exists!" };
                 return this.View();
             }
 
@@ -58,7 +62,34 @@
         [HttpGet]
         public IActionResult Login()
         {
+            this.Model.Data["DisplayError"] = new DisplayError { Display = "none" };
             return this.View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(UserLoginViewModel model)
+        {
+            var username = model.Username.UrlDecode();
+            var password = model.Password;
+
+            var user = this.userService.GetUser(username, password);
+
+            if (user == null)
+            {
+                this.Model.Data["DisplayError"] = new DisplayError { Display = "block", Message = "Invalid username or password!" };
+                return this.View();
+            }
+
+            this.SignIn(new IdentityUser() { Username = username, Roles = new List<string> { user.Role.ToString() } });
+            return new RedirectResult("/");
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            this.Model.Data["DisplayError"] = new DisplayError { Display = "none" };
+            this.SignOut();
+            return new RedirectResult("/");
         }
     }
 }
