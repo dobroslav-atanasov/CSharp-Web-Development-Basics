@@ -51,5 +51,16 @@
                 return user;
             }
         }
+
+        public User GetUser(string username)
+        {
+            using (var db = new MishMashDbContext())
+            {
+                var user = db.Users
+                    .FirstOrDefault(u => u.Username == username);
+
+                return user;
+            }
+        }
     }
 }

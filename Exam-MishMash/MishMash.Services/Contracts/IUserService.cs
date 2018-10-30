@@ -12,5 +12,7 @@
         bool HaveUsers();
 
         User GetUser(string username, string password);
+
+        User GetUser(string username);
     }
 }
