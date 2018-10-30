@@ -9,5 +9,7 @@
 
         public int ChannelId { get; set; }
         public Channel Channel { get; set; }
+
+        public bool IsFollow { get; set; }
     }
 }
