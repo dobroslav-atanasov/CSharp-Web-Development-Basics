@@ -25,7 +25,7 @@ namespace SIS.Framework.Controllers
 
         public Model ModelState { get; } = new Model();
 
-        protected IViewable View([CallerMemberName] string actionName = "")
+        protected virtual IViewable View([CallerMemberName] string actionName = "")
         {
             string controllerName = ControllerUtilities.GetControllerName(this);
             string viewContent = null;
