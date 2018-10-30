@@ -1,6 +1,7 @@
 ﻿namespace MishMash.App.Controllers
 {
     using System.Collections.Generic;
+    using Base;
     using Extensions;
     using Models.Enums;
     using Services.Contracts;
@@ -12,7 +13,7 @@
     using ViewModels.Errors;
     using ViewModels.Users;
 
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         private readonly IUserService userService;
 
@@ -87,6 +88,11 @@
         [HttpGet]
         public IActionResult Logout()
         {
+            if (this.Identity == null)
+            {
+                return new RedirectResult("/Users/Login");
+            }
+
             this.Model.Data["DisplayError"] = new DisplayError { Display = "none" };
             this.SignOut();
             return new RedirectResult("/");

@@ -14,6 +14,7 @@
             dependencyContainer.RegisterDependency<UsersController, UsersController>();
 
             dependencyContainer.RegisterDependency<IUserService, UserService>();
+            dependencyContainer.RegisterDependency<IChannelService, ChannelService>();
         }
     }
 }
