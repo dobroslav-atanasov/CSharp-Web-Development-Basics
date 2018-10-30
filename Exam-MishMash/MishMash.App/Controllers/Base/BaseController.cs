@@ -28,7 +28,6 @@
                 this.Model.Data["Name"] = this.Identity.Username;
                 this.Model.Data["Guest"] = "none";
                 this.Model.Data["Admin"] = "none";
-
             }
 
             return base.View(actionName);
