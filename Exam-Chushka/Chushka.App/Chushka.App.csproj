@@ -6,11 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chushka.Services\Chushka.Services.csproj" />
     <ProjectReference Include="..\SIS.Framework\SIS.Framework.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,8 @@
 ﻿namespace Chushka.App
 {
-    using Chushka.App.Controllers;
+    using Controllers;
+    using Services;
+    using Services.Contracts;
     using SIS.Framework.Api;
     using SIS.Framework.Services;
 
@@ -9,6 +11,9 @@
         public override void ConfigureServices(IDependencyContainer dependencyContainer)
         {
             dependencyContainer.RegisterDependency<HomeController, HomeController>();
+            dependencyContainer.RegisterDependency<UsersController, UsersController>();
+
+            dependencyContainer.RegisterDependency<IUserService, UserService>();
         }
     }
 }
