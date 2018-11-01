@@ -43,31 +43,6 @@
             }
         }
 
-        public List<Channel> GetAllChannels()
-        {
-            using (var db = new MishMashDbContext())
-            {
-                return db.Channels.ToList();
-                //var channels = db.UserChannels
-                //    .Where(uc => uc.IsFollow == false)
-                //    .Select(uc => uc.Channel)
-                //    .ToList();
-
-
-                //return channels;
-                //var channelIds = db.Channels
-                //    .Select(c => c.Id)
-                //    .ToList();
-
-
-                //var list = new List<Channel>();
-                //foreach (var id in channelIds)
-                //{
-
-                //}
-            }
-        }
-
         public int GetTotalFollowers(int channelId)
         {
             using (var db = new MishMashDbContext())
@@ -134,6 +109,27 @@
                     .ToList();
 
                 return channels;
+            }
+        }
+
+        public List<Channel> GetAllChannels(int userId)
+        {
+            using (var db = new MishMashDbContext())
+            {
+                var ids = db.UserChannels.Where(uc => uc.UserId == 1)
+                    .Select(uc => uc.ChannelId)
+                    .ToList();
+
+                var list = new List<Channel>();
+                foreach (var channel in db.Channels)
+                {
+                    if (!ids.Contains(channel.Id))
+                    {
+                        list.Add(channel);
+                    }
+                }
+
+                return list;
             }
         }
 

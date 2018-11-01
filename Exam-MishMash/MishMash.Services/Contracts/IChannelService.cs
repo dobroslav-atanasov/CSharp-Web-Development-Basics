@@ -7,7 +7,7 @@
     {
         void AddChannel(string name, string description, string tagString, string channelType);
 
-        List<Channel> GetAllChannels();
+        List<Channel> GetAllChannels(int userId);
 
         int GetTotalFollowers(int channelId);
 
