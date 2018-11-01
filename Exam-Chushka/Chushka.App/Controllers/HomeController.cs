@@ -1,14 +1,28 @@
 ﻿namespace Chushka.App.Controllers
 {
+    using System.Linq;
     using SIS.Framework.ActionResults;
     using SIS.Framework.Attributes.Method;
-    using SIS.Framework.Controllers;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         [HttpGet]
         public IActionResult Index()
         {
+            if (this.Identity != null)
+            {
+                if (this.Identity.Roles.Contains("Admin"))
+                {
+                    return this.View("Index-Admin");
+                }
+
+                if (this.Identity.Roles.Contains("User"))
+                {
+                    this.Model.Data["Name"] = this.Identity.Username;
+                    return this.View("Index-User");
+                }
+            }
+
             return this.View();
         }
     }
