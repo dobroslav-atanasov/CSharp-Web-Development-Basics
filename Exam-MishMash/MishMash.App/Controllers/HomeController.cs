@@ -14,23 +14,28 @@
     public class HomeController : BaseController
     {
         private readonly IChannelService channelService;
+        private readonly IUserService userService;
 
-        public HomeController(IChannelService channelService)
+        public HomeController(IChannelService channelService, IUserService userService)
         {
             this.channelService = channelService;
+            this.userService = userService;
         }
         
         [HttpGet]
         public IActionResult Index()
         {
-            // TODO
+            var user = this.userService.GetUser(this.Identity.Username);
             var channelsYour = this.channelService.GetAllFollowChannels();
-            var channelsSeeOther = this.channelService.GetAllChannels();
+            var channelsSeeOther = this.channelService.GetAllChannels(1);
+
             this.Model.Data["ChannelsViewModel"] = new ChannelsViewModel
             {
                 YourChannels = this.ExtractAllSeeOtherChannels(channelsYour),
+                Suggested = "null",
                 SeeOther = this.ExtractAllSeeOtherChannels(channelsSeeOther),
             };
+
             return this.View();
         }
 

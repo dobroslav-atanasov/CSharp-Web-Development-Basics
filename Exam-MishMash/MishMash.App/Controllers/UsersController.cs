@@ -88,11 +88,6 @@
         [HttpGet]
         public IActionResult Logout()
         {
-            if (this.Identity == null)
-            {
-                return new RedirectResult("/Users/Login");
-            }
-
             this.Model.Data["DisplayError"] = new DisplayError { Display = "none" };
             this.SignOut();
             return new RedirectResult("/");
