@@ -12,8 +12,12 @@
         {
             dependencyContainer.RegisterDependency<HomeController, HomeController>();
             dependencyContainer.RegisterDependency<UsersController, UsersController>();
+            dependencyContainer.RegisterDependency<ProductsController, ProductsController>();
+            dependencyContainer.RegisterDependency<OrdersController, OrdersController>();
 
             dependencyContainer.RegisterDependency<IUserService, UserService>();
+            dependencyContainer.RegisterDependency<IProductService, ProductService>();
+            dependencyContainer.RegisterDependency<IOrderService, OrderService>();
         }
     }
 }
