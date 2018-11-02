@@ -13,5 +13,7 @@
         public User Client { get; set; }
 
         public DateTime OrderedOn { get; set; } = DateTime.UtcNow;
+
+        public bool IsDeleted { get; set; } = false;
     }
 }

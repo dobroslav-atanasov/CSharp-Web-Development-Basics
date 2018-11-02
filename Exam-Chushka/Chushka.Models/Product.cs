@@ -20,6 +20,8 @@
 
         public Type Type { get; set; }
 
+        public bool IsDeleted { get; set; } = false;
+
         public ICollection<Order> Orders { get; set; }
     }
 }
